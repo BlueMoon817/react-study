@@ -24,6 +24,8 @@ function App() {
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
     let response = await fetch(url);
     let data = await response.json();
+    console.log(data)
+
     setWeather(data);
     settingType(data);
     setLoading(false);
@@ -39,21 +41,22 @@ function App() {
    let url =`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
    let response = await fetch(url);
    let data = await response.json();
+    console.log(data)
    setWeather(data);
    settingType(data);
    setLoading(false);
   }
   const settingType=(weather)=>{
-    if((weather.weather[0].main)=='Drizzle'){
+    if((weather&& weather.weather[0].main)=='Drizzle'){
       setType('Rain');
-    }else if((weather.weather[0].main)==('Thunderstorm' || 'Tonado')){
+    } else if (((weather && weather.weather[0].main) == 'Thunderstorm') || ((weather && weather.weather[0].main) == 'Tonado')){
       setType('Squall');
-    }else if((weather.weather[0].main)==('Mist' || 'Smoke' || ' Haze')){
+    } else if (((weather && weather.weather[0].main) == 'Mist') || ((weather && weather.weather[0].main) == 'Smoke') || ((weather && weather.weather[0].main) == 'Haze')){
       setType('Fog');
-    }else if((weather.weather[0].main)==('Sand' || 'Ash')){
+    } else if (((weather && weather.weather[0].main) == 'Sand') || ((weather && weather.weather[0].main) == 'Ash')){
       setType('Dust');
     }else{
-      setType(weather.weather[0].main);
+      setType(weather &&weather.weather[0].main);
     }
   }
   
