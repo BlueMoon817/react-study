@@ -6,18 +6,24 @@ import Main from './pages/main';
 import Login from './pages/login';
 import Navbar from './components/Navbar';
 import ProductDetail from './pages/productDetail.js';
+import List from './pages/list';
 function App() {
+
   // 페이지 클래스 업데이트 변수
   const [urlPath, setClassName] = useState("page-product");
-  const {id} = useParams();
   // 로그인여부체크
   const [authenticate, setAuthenticate] = useState(false);
+  const [savePdtNum, setSavePdtNum] = useState([]);
+  const saveProduct = (item) => {
+    setSavePdtNum(savePdtNum?[...savePdtNum, item]:[item]);
+  }
   const PrivatePage=()=>{
-    return authenticate? <ProductDetail/> : <Navigate to="/login"/>
+    return authenticate ? <ProductDetail productList={productList} saveProduct={saveProduct} /> : <Navigate to="/login"/>
   }
   // 현재페이지체크
-  const params=useLocation();
-  
+  const paths=useLocation();
+  // 장바구니 목록 
+
   // 에러텍스트 유무
   const [text, setText] =useState(true);
   // input 아이디체크
@@ -28,6 +34,19 @@ function App() {
   const [btnText, setBtnText]=useState('로그인');
   // 네비게이트
   let navigate=useNavigate();
+
+  const [productList, setProductList] = useState([]);
+  const getProducts = async () => {
+    let url = `http://localhost:3004/products`;
+    let response = await fetch(url);
+    let data = await response.json();
+    setProductList(data);
+  }
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+
   
   // input에 값이 들어오면 로그인 체크를 위해 value 업데이트 
   const onChangeInputValue=(e, sort)=>{
@@ -56,14 +75,16 @@ function App() {
 
   // 페이지 이동시 페이지 클래스 변경
   useEffect(()=>{
-    if (params.pathname=="/login"){
+    if (paths.pathname==="/login"){
       setClassName("page-login");
-    }else if (params.pathname == "/"){
+    } else if (paths.pathname === `/list`){
+      setClassName("page-list");
+    } else if (paths.pathname === "/") {
       setClassName("page-product");
-    }else if(params.pathname == `/product/${id}`){
+    } else {
       setClassName("page-detail");
     }
-  }, [params.pathname]);
+  }, [paths.pathname]);
 
   return (
     <div className={urlPath}>
@@ -72,7 +93,13 @@ function App() {
         <Route 
           path="/" 
           element={
-            <Main/>
+            <Main productList={productList} saveProduct={saveProduct} />
+          } 
+        />
+        <Route 
+          path="/list" 
+          element={
+            <List list={savePdtNum} saveProduct={saveProduct} productList={productList} />
           } 
         />
         <Route 
@@ -86,7 +113,7 @@ function App() {
           } 
         />
         <Route 
-          path={`/product/${id}`} 
+          path={`/product/:id`} 
           element={
             <PrivatePage/> 
           }

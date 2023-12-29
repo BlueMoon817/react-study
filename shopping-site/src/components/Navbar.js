@@ -1,6 +1,5 @@
-
+import React from "react";
 import {Link, useLocation} from "react-router-dom";
-import {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -19,6 +18,7 @@ export default function Navbar({name,sendFunc}) {
               <li className="list_items"><Link to="/">Home</Link></li>
               <li className="list_items"><Link to="/">상의</Link></li>
               <li className="list_items"><Link to="/">하의</Link></li>
+              <li className="list_items"><Link to="/list">장바구니</Link></li>
               <li className="list_items"><Link to="/">고객센터</Link></li>
             </ul>
           <div className="search_box"><FontAwesomeIcon icon={faMagnifyingGlass} className="ic_search"/><input className="input_search" type="text"  placeholder="검색어를 입력하세요." /></div>

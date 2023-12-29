@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from 'react';
 export const Input = ({inputType, guideText, changeInput, sort}) => {
 
   return (

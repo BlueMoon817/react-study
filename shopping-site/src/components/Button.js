@@ -1,9 +1,10 @@
-import React,{useState} from "react";
+import React from "react";
 
-export const Button = ({btnType, style, name, passState }) => {
+export const Button = ({ btnType, style, name, startFunc, item }) => {
+
   return (
     <div className='btn_group'>
-      <button type={btnType} className={`${style}`} onClick={passState}>{name}</button>
+      <button type={btnType} className={`${style}`} onClick={item ? function () { startFunc(item) } : startFunc}>{name}</button>
     </div>
   )
 }
