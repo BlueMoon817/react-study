@@ -2,6 +2,8 @@ import React,{useEffect, useState} from 'react';
 import { Input } from '../components/input';
 import { Button } from '../components/Button';
 import { Text } from '../components/Text';
+
+
 export default function Login({loginCheckFunc}) {
     // input 아이디체크
   const [idVal, setIdVal]=useState(null);

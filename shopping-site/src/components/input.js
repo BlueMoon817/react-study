@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Icon } from './icon';
 
 export const Input = ({inputType, guideText, onChangeInputValue, sort, changeIcon}) => {
