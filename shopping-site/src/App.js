@@ -1,78 +1,94 @@
 import logo from './logo.svg';
 import {useEffect, useState} from "react";
 import './App.css';
-import {Routes, Route, Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
+import {Routes, Route, useLocation} from "react-router-dom";
 import Main from './pages/main';
 import Login from './pages/login';
 import Navbar from './components/Navbar';
-import ProductDetail from './pages/productDetail.js';
 import List from './pages/list';
+import PrivatePage from './pages/PrivatePage.js';
 function App() {
-
+  // 현재페이지체크
+  const paths=useLocation();
   // 페이지 클래스 업데이트 변수
   const [urlPath, setClassName] = useState("page-product");
   // 로그인여부체크
   const [authenticate, setAuthenticate] = useState(false);
-  const [savePdtNum, setSavePdtNum] = useState([]);
-  const saveProduct = (item) => {
-    setSavePdtNum(savePdtNum?[...savePdtNum, item]:[item]);
-  }
-  const PrivatePage=()=>{
-    return authenticate ? <ProductDetail productList={productList} saveProduct={saveProduct} /> : <Navigate to="/login"/>
-  }
-  // 현재페이지체크
-  const paths=useLocation();
-  // 장바구니 목록 
-
-  // 에러텍스트 유무
-  const [text, setText] =useState(true);
-  // input 아이디체크
-  const [idVal, setIdVal]=useState('');
-  // input 비밀번호 체크
-  const [pwVal, setPwVal]=useState('');
-  // 헤더로그인버튼 
+  // 로그인버튼 텍스트
   const [btnText, setBtnText]=useState('로그인');
-  // 네비게이트
-  let navigate=useNavigate();
-
+  // 상품 리스트
   const [productList, setProductList] = useState([]);
+  // 장바구니 목록
+  const [savePdt, setSavePdt] = useState(null);
+  // 팝업열림상태
+  const [popupState, setPopupState]=useState(false);
+  // 팝업 메시지
+  const [messageTxt,setMessageTxt] = useState('');
+  
+  // 로그인 조건 함수 (로그인버튼 텍스트와, 로그인상태값 업데이트)
+  const loginCheckFunc=(state)=>{ 
+    if(state==="login"){
+      setAuthenticate(true);
+      setBtnText('로그아웃');
+    }else if("logout"){
+      setAuthenticate(false);
+      setBtnText('로그인');
+    }
+  }
+  
+  // 상품리스트 받아오기
   const getProducts = async () => {
     let url = `http://localhost:3004/products`;
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
   }
+  
+  // 장바구니 목록 업데이트 함수
+  const saveProduct = (item) => {
+    // 다차배열을 사용해서 item이 아닌 list에 고유의 key값을 넣어준다.
+    //[ [{item}, key], [{item}, key], [{item}, key], [{item}, key] ]
+    setSavePdt(function(){
+      let save= savePdt?[...savePdt, [item]]:[[item]]
+      save[save.length-1].key = Math.random()*1000
+      return [...save]})
+  }
+  
+  // 장바구니 목록 삭제
+  const deleteFunc=(item)=>{
+    savePdt.map((saveItem,index)=>{
+      if(saveItem.key===item.key){
+        savePdt.splice(index,1)
+        setSavePdt(savePdt.length>0?[...savePdt]:null)
+      }
+    })
+  }
+  // 팝업 상태 업데이트함수
+  const popupFunc=(name)=>{
+    if(name==="추가"){
+      // 팝업 띄우기
+      setMessageTxt("장바구니에 상품이 추가되었습니다.");
+      setPopupState(true);
+    }else if(name==="계속 쇼핑하기" || name==="장바구니로" ){
+      // 팝업 닫기
+      setMessageTxt("");
+      setPopupState(false);
+    }
+  } 
+  // 상품 받아오기 : 페이지 처음 렌더링시 한번만 실행
   useEffect(() => {
     getProducts();
   }, []);
-
-
   
-  // input에 값이 들어오면 로그인 체크를 위해 value 업데이트 
-  const onChangeInputValue=(e, sort)=>{
-    if(sort==='id'){
-      setIdVal(e.target.value);
-    }else if(sort==='password'){
-      setPwVal(e.target.value);
-    }
-  }
-  
-  // 로그인 조건 함수
-  const loginCheckFunc=()=>{
-    // 여기서 아이디 비밀번호 값을 ajax로 보내서 응답 받고 아래실행문 처리.
-    if(idVal.length===0 || pwVal.length===0){
-      setText(false);
-      setAuthenticate(false);
+  // 로그인 업데이트 시 
+  useEffect(()=>{
+    if(authenticate===true){
+      loginCheckFunc("login");
     }else{
-      navigate('/');
-      setIdVal('');
-      setPwVal('');
-      setText(true);
-      setBtnText('로그아웃');
-      setAuthenticate(true);
+      loginCheckFunc("logout");
     }
-  }
-
+  },[authenticate]);
+  
   // 페이지 이동시 페이지 클래스 변경
   useEffect(()=>{
     if (paths.pathname==="/login"){
@@ -88,34 +104,50 @@ function App() {
 
   return (
     <div className={urlPath}>
-      <Navbar  name={btnText} sendFunc={()=>{ setBtnText('로그인'); }}></Navbar>
+      <Navbar  
+        stateLogin={btnText} 
+        loginCheckFunc={loginCheckFunc}
+      ></Navbar>
       <Routes>
         <Route 
           path="/" 
           element={
-            <Main productList={productList} saveProduct={saveProduct} />
+            <Main 
+              productList={productList} 
+              saveProduct={saveProduct} 
+            />
           } 
         />
         <Route 
           path="/list" 
           element={
-            <List list={savePdtNum} saveProduct={saveProduct} productList={productList} />
+            <List 
+              list={savePdt} 
+              saveProduct={saveProduct} 
+              deleteFunc={deleteFunc} 
+              productList={productList} 
+            />
           } 
         />
         <Route 
           path="/login" 
           element={ 
             <Login 
-              setFunc={loginCheckFunc} 
-              text={text} 
-              changeInput={onChangeInputValue} 
+              stateLogin={authenticate}
+              loginCheckFunc={loginCheckFunc} 
             /> 
           } 
         />
         <Route 
           path={`/product/:id`} 
           element={
-            <PrivatePage/> 
+            <PrivatePage 
+              authenticate={authenticate} 
+              popupState={popupState} 
+              messageTxt={messageTxt} 
+              popupFunc={popupFunc}
+              productList={productList} 
+            /> 
           }
         />
       </Routes> 

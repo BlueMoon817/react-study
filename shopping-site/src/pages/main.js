@@ -10,7 +10,12 @@ export default function Main({ productList, saveProduct }){
           <div className="product_area">
             <ul className="product_list">
               {productList.map((menu) => (
-                <li className="list_item"><ProductCard item={menu} saveProduct={saveProduct} /></li>
+                <li className="list_item">
+                  <ProductCard 
+                    item={menu} 
+                    saveProduct={saveProduct} 
+                  />
+                </li>
               ))}
             </ul>
           </div>

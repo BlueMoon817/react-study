@@ -1,0 +1,65 @@
+.ic_user{margin-right:8px;}
+.logo {
+  display: inline-block;
+  width: 61px;
+  height: 40px;
+  background: url(../img/logo.svg) no-repeat;
+  background-size: 100%;
+}
+
+.ic_badge {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: red;
+  font-weight: bold;
+  box-sizing: border-box;
+  text-shadow: 0 0 1px #2d2d2d;
+}
+
+.ic_view{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform: translateY(-50%);
+  width:30px;
+  height:30px;
+
+}
+
+.ic_view::after{
+  cursor: pointer;
+  content:'';
+  position: absolute;
+  left:50%;
+  top: 50%;
+  width:16px;
+  height:16px;
+  transform: translate(-50%, -50%);
+  background-image: url(../img/ic_view.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.ic_hidden{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform: translateY(-50%);
+  width:30px;
+  height:30px;
+
+}
+
+.ic_hidden::after{
+  cursor: pointer;
+  content:'';
+  position: absolute;
+  left:50%;
+  top: 50%;
+  width:16px;
+  height:16px;
+  transform: translate(-50%, -50%);
+  background-image: url(../img/ic_hidden.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}

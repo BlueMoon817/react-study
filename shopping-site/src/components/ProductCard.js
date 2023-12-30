@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const ProductCard = ({ item, productList}) => {
+export const ProductCard = ({item}) => {
 
   return (
       <Link className="pdt_box" to={`/product/${item.id}`}>

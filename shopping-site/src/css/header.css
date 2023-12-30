@@ -1,0 +1,28 @@
+
+.header{width: 100%;padding: 0 80px;position: fixed;left: 0;top: 0;box-sizing: border-box;background: #faf4f4;z-index: 30;}
+.header .util_area{width: 100%; text-align: right;padding: 10px 0;box-sizing: border-box;}
+.header .logo_area{width: 100%; text-align: center;padding: 10px 0;box-sizing: border-box;}
+.header .nav_bar{position: relative; display: flex; width: 100%; padding: 10px 0 0 ;box-sizing: border-box;justify-content: center;}
+
+.header .nav_bar .list_menu{width: 400px; display: flex; justify-content: space-between;}
+.header .nav_bar .list_items{position:relative; width:auto;
+font-weight:bold;padding:5px 10px;cursor:pointer;}
+.header .nav_bar .list_items::before{
+  content: '';
+  position:absolute;
+  bottom:0;
+  width:0px;
+  height:2px;
+  background-color:rgb(245, 130, 22);
+  left:0;
+  transition: 0.3s;
+}
+.header .nav_bar .list_items:hover{
+  color:rgb(245, 130, 22);
+}
+.header .nav_bar .list_items:hover::before{
+  width: 100%;
+}
+.header .search_box{position: absolute;right:0;top: 10px;}
+.header .search_box .input_search{background-color: transparent; border: 0; border-bottom: 2px solid #000; padding-left: 20px; height: 22px;line-height: 22px;outline:none;}
+.header .search_box .ic_search{position: absolute;left: 0;top: 5px;}
