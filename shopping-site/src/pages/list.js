@@ -28,7 +28,15 @@ export default function List({ list, productList, deleteFunc}) {
                         </div>
                         <div className="text_wrap">
                           <Text textType="title" description={item.title} sort="p"/>
-                          <Text textType="price" description={item.price} sort="strong"/>
+                          <div className='text_area'>
+                            <Text textType="price" description={listItem.number>1?`${listItem.price}` : `${item.price}`} sort="strong"/>
+                            {
+                              listItem.number>1?
+                              <Text textType="price" description={`( ${listItem.number}개 * ${item.price} )`} sort="strong"/>:""
+                            }
+                            <Text textType="price" description={`사이즈 : ${listItem.size}`} sort="strong"/>
+                          </div>
+
                         </div>
                         </Link>
                         {/* 상품지우기 버튼 */}

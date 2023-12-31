@@ -26,3 +26,4 @@ font-weight:bold;padding:5px 10px;cursor:pointer;}
 .header .search_box{position: absolute;right:0;top: 10px;}
 .header .search_box .input_search{background-color: transparent; border: 0; border-bottom: 2px solid #000; padding-left: 20px; height: 22px;line-height: 22px;outline:none;}
 .header .search_box .ic_search{position: absolute;left: 0;top: 5px;}
+

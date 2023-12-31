@@ -17,16 +17,37 @@
   text-shadow: 0 0 1px #2d2d2d;
 }
 
-.ic_view{
+.ic{
   position:absolute;
   right:0;
   top:50%;
   transform: translateY(-50%);
   width:30px;
   height:30px;
-
 }
 
+.ic_clear::after{
+  cursor: pointer;
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+  background-image: url(../img/ic_close_16px.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity:0;
+  cursor:default;
+  pointer-events: none;
+  user-select: none;
+}
+.input_box.input_focus .ic_clear::after{
+  opacity:1;
+  pointer-events:all;
+  user-select:auto;
+}
 .ic_view::after{
   cursor: pointer;
   content:'';
@@ -60,6 +81,40 @@
   height:16px;
   transform: translate(-50%, -50%);
   background-image: url(../img/ic_hidden.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.ic_heart, .ic_heart_filled{
+  position:absolute;
+  top:auto;
+  bottom:0;
+  transform: translateY(0);
+  width:40px;
+  height:40px;
+  cursor: pointer;
+}
+.ic_heart::before{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/ic_heart_24px.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.ic_heart_filled::before{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/ic_heart_filled.svg);
   background-repeat: no-repeat;
   background-size: 100%;
 }

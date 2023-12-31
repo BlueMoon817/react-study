@@ -18,6 +18,7 @@
 }
 
 .page-product .product_list .list_item {
+  position:relative;
   width: calc((100% - 30px)/4);
   margin-top: 20px;
   margin-left: 10px;
@@ -36,6 +37,7 @@
 }
 
 .page-product .product_list .text_wrap {
+  width:calc(100% - 30px);
   margin-top: 10px;
   padding: 5px;
   box-sizing: border-box;

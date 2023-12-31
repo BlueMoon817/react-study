@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 
-export const Button = ({ btnType, style, name, onFunc, item, disabled, popupFunc}) => {
+export const Button = ({ btnType, style, name, onFunc, item, disabled, popupFunc,itemInfo}) => {
   const navigate=useNavigate();
   return (
       <button 
@@ -12,6 +12,11 @@ export const Button = ({ btnType, style, name, onFunc, item, disabled, popupFunc
           // 버튼에 따라 모달 띄우기
           if(name==="추가"){
             popupFunc(name);
+            if(itemInfo.number>1){
+              return onFunc(item, itemInfo.number, itemInfo.selectSize);
+            }else{
+              return onFunc(item,1,itemInfo.selectSize);
+            }
           }else if(name==="계속 쇼핑하기"){
             onFunc(name);
           }else if(name==="장바구니로"){
@@ -20,7 +25,8 @@ export const Button = ({ btnType, style, name, onFunc, item, disabled, popupFunc
           }else if(name==="로그인" && item === "login"){
             navigate('/')
           }
-          onFunc(item);
+          
+          onFunc(item)
         }} 
       >{name}</button>
   )

@@ -9,15 +9,25 @@
   font-weight: bold;
   border-radius: 4px;
 }
-
-.btn:nth-of-type(1) {
-  margin-top: 30px;
-}
-
 .btn:hover {
   background-color: #2d2d2d;
   transition: 0.2s;
   color: #fff;
+}
+
+.btn.is_active {
+  background-color: #f58d8d;
+  color: #fff;
+}
+
+.btn:disabled {
+  background-color: #ddd;
+  color: #777;
+  cursor: default;
+}
+
+.btn:nth-of-type(1) {
+  margin-top: 30px;
 }
 
 .btn_icon {
@@ -49,13 +59,12 @@
   background-size: 100%;
 }
 
-.btn.is_active {
-  background-color: #f58d8d;
-  color: #fff;
-}
-
-.btn:disabled {
-  background-color: #ddd;
-  color: #777;
-  cursor: default;
+.btn.btn_search{
+  position:absolute;
+  right:-40px;
+  top:calc(100% - 23px);
+  width:40px;
+  height:23px;
+  font-size:12px;
+  margin-top:0;
 }

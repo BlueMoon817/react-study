@@ -1,10 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { Input } from './input';
+import { Button } from './Button';
 
-export default function Navbar({stateLogin, loginCheckFunc}) {
+export default function Navbar({stateLogin, loginCheckFunc, searchFunc, on}) {
+  const [inputOb, setInputOb] = useState([{
+    key:0,
+    sort:"search",
+    type:"text",
+    val:null,
+    focus:false,
+    guide:"검색어를 입력하세요",
+    style:"input_search",
+    icon:"search",
+  }]);
+  
+  const [keywordTxt,setKeywordText] = useState('');
+  const getKeyword=(e, state, input, type)=>{
+    input.val=e.target.value;
+    setKeywordText(input.val);
+    setInputOb([...inputOb]);
+  }
   const params=useLocation();
   if(params.pathname!=="/login"){
     return (
@@ -21,13 +40,21 @@ export default function Navbar({stateLogin, loginCheckFunc}) {
           <div className="logo_area"><h1><Link to="/" className="logo"></Link></h1></div>
           <nav className="nav_bar">
             <ul className="list_menu">
-              <li className="list_items"><Link to="/">Home</Link></li>
-              <li className="list_items"><Link to="/">상의</Link></li>
-              <li className="list_items"><Link to="/">하의</Link></li>
-              <li className="list_items"><Link to="/list">장바구니</Link></li>
-              <li className="list_items"><Link to="/">고객센터</Link></li>
+              <li className="list_items"><Link to="/" onClick={()=>{ on("Home"); }}>Home</Link></li>
+              <li className="list_items"><Link to="/" onClick={()=>{ on("상의"); }}>상의</Link></li>
+              <li className="list_items"><Link to="/" onClick={()=>{ on("하의"); }}>하의</Link></li>
+              <li className="list_items"><Link to="/list" onClick={()=>{ on("장바구니"); }}>장바구니</Link></li>
+              <li className="list_items"><Link to="/info" onClick={()=>{ on("My Info"); }}>My Info</Link></li>
             </ul>
-          <div className="search_box"><FontAwesomeIcon icon={faMagnifyingGlass} className="ic_search"/><input className="input_search" type="text"  placeholder="검색어를 입력하세요." /></div>
+          <div className="search_box">
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="ic_search"/>
+            <Input 
+              num="0"
+              inputOb={inputOb}
+              onFunc={getKeyword}
+             />
+            <Button type="button" style="btn btn_search" onFunc={searchFunc} item={keywordTxt} name="검색" />
+          </div>
           </nav>
         </header>
     </>)  

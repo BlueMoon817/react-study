@@ -3,7 +3,7 @@
     {
       "id": 0,
       "img": "https://lp2.hm.com/hmgoepprod?set=source[/8e/25/8e25fe0c27b7d80f3a798b6e05f19afb965c2d8c.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[y],hmver[2]&call=url[file:/product/main]",
-      "title": "벨티드 트윌 코트",
+      "title": "슬림핏 맘 하이웨이스트 앵클 진",
       "price": 99900,
       "choice": true,
       "new": true,
@@ -11,12 +11,14 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+      "type":"pants",
+      "like":false
     },
     {
       "id": 1,
       "img": "https://lp2.hm.com/hmgoepprod?set=source[/21/8b/218b28e063bb5f2e603ee06bc9c913eeced95f54.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[y],hmver[2]&call=url[file:/product/main]",
-      "title": "슬림핏 맘 하이웨이스트 앵클 진",
+      "title": "벨티드 트윌 코트",
       "price": 29900,
       "choice": true,
       "new": true,
@@ -24,7 +26,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+      "type":"top",
+      "like":false
     },
     {
       "id": 2,
@@ -37,7 +41,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+      "type":"pants",
+      "like":false
     },
     {
       "id": 3,
@@ -50,7 +56,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+      "type":"dress",
+      "like":false
     },
     {
       "id": 4,
@@ -63,7 +71,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"top",
+       "like":false
     },
     {
       "id": 5,
@@ -76,7 +86,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"top",
+       "like":false
     },
     {
       "id": 6,
@@ -89,7 +101,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"top",
+       "like":false
     },
     {
       "id": 7,
@@ -102,7 +116,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"top",
+       "like":false
     },
     {
       "id": 8,
@@ -115,7 +131,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"top",
+       "like":false
     },
     {
       "id": 9,
@@ -128,7 +146,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"top",
+       "like":false
     },
     {
       "id": 10,
@@ -141,7 +161,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"pants",
+       "like":false
     },
     {
       "id": 11,
@@ -154,7 +176,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"pants",
+       "like":false
     },
     {
       "id": 12,
@@ -167,7 +191,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"top",
+       "like":false
     },
     {
       "id": 13,
@@ -180,7 +206,9 @@
         "S",
         "M",
         "L"
-      ]
+      ],
+       "type":"pants",
+       "like":false
     }
   ]
 }

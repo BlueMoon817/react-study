@@ -11,7 +11,7 @@
 }
 
 .page-list .inner {
-  width: 500px;
+  width: 600px;
 }
 
 .page-list .inner .list_pdt {
@@ -20,9 +20,9 @@
   padding: 20px;
   box-sizing: border-box;
   border-radius: 4px;
-  background-color: #000;
+  background-color: #2d2d2d;
   color: #eee;
-  max-height: 465px;
+  max-height: 500px;
   overflow-y: auto;
 }
 
@@ -57,4 +57,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.page-list .list_pdt .text_area strong{
+  display:block;
+  text-align:right;
+}
+.page-list .list_pdt .list_item{
+  padding-bottom:10px;
+  border-bottom:1px solid #555;
 }

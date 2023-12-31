@@ -1,7 +1,9 @@
 import React from "react";
 import { ProductCard } from "../components/ProductCard";
+import { Text } from '../components/Text';
+import { Icon } from '../components/icon';
 
-export default function Main({ productList, saveProduct }){
+export default function Main({ productList, saveProduct, updateLikeData,authenticate }){
 
   return(
     <div className="wrap">
@@ -9,11 +11,22 @@ export default function Main({ productList, saveProduct }){
         <div className='inner'>
           <div className="product_area">
             <ul className="product_list">
-              {productList.map((menu) => (
+              {
+              typeof productList === "string"?
+              <Text sort="p" description={productList}/>
+              :
+              productList.map((menu) => (
                 <li className="list_item">
                   <ProductCard 
                     item={menu} 
-                    saveProduct={saveProduct} 
+                    saveProduct={saveProduct}
+                  />
+                  <Icon 
+                    iconName={menu.name?menu.name:"heart"}
+                    iconLabel={menu.like?"관심상품 취소하기":"관심상품으로 등록하기"}
+                    onFunc={updateLikeData}
+                    item={menu}
+                    authenticate={authenticate}
                   />
                 </li>
               ))}

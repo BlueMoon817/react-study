@@ -3,13 +3,19 @@ import { useParams} from "react-router-dom";
 import { Button } from "../components/Button";
 import { Modal } from '../components/Modal';
 import { Text } from '../components/Text';
+import { Icon } from '../components/icon';
 
 export default function ProductDetail({productList, saveProduct, popupState,messageTxt,popupFunc}) {
   const params = useParams();
   // 상품 사이즈선택
   const [selectSize, setSelectSize] = useState(null);
-  const selectFunc=(name) => setSelectSize(name);
-
+  const selectFunc=(name) => {
+    setSelectSize(name);
+  };
+  const [number, setNumber]=useState(1);
+  const numberFunc=(num)=>{
+    setNumber(num);
+  }
   return (
     <div className="wrap">
       {popupState===true? <Modal messageTxt={messageTxt} popupFunc={popupFunc}></Modal> : ""}
@@ -46,18 +52,43 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                   :""
                 }
                 </div>
+                <div className='count_area'>
+                  <div className='count_box'>
+                    <Text 
+                      sort="span" 
+                      description={number}
+                    />
+                    <div className='icon_box'>
+                      <Icon 
+                        iconName="plus" 
+                        iconLabel="1개 추가버튼" 
+                        onFunc={numberFunc} 
+                        item={number}
+                      />
+                      <Icon 
+                        iconName="minus" 
+                        iconLabel="1개 삭제 버튼" 
+                        onFunc={numberFunc} 
+                        item={number}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <Text sort="p" description="수량을 선택해주세요." />
                 <Button 
-                  name="추가" 
+                  name="추가"
+                  itemInfo={{number, selectSize}}
                   style={`btn btn_add`} 
                   btnType="button" 
                   onFunc={saveProduct} 
-                  item={item} 
+                  item={item}
                   key={Math.random()*1000} 
                   disabled={selectSize?false:"disabled"} 
                   popupFunc={popupFunc}
                 />
                 <Button 
-                  name="바로구매하기" 
+                  itemInfo={{number, selectSize}}
+                  name="바로구매하기"
                   style={`btn`} 
                   btnType="button"
                 />                    
