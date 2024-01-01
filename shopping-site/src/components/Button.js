@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 
-export const Button = ({ btnType, style, name, onFunc, item, disabled, popupFunc,itemInfo}) => {
+export const Button = ({ btnType, style, name, onFunc, item, disabled, popupFunc,itemInfo, path}) => {
   const navigate=useNavigate();
+  console.log("버튼 렌더링")
   return (
       <button 
         type={btnType} 
@@ -23,10 +24,13 @@ export const Button = ({ btnType, style, name, onFunc, item, disabled, popupFunc
             onFunc(name);
             navigate('/list');
           }else if(name==="로그인" && item === "login"){
-            navigate('/')
+            onFunc(item);
+            navigate('/');
+          }else if(name==="검색"){
+            onFunc(path,item);
+          }else {
+            onFunc(item)
           }
-          
-          onFunc(item)
         }} 
       >{name}</button>
   )

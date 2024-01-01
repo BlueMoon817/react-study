@@ -4,7 +4,7 @@
 .header .logo_area{width: 100%; text-align: center;padding: 10px 0;box-sizing: border-box;}
 .header .nav_bar{position: relative; display: flex; width: 100%; padding: 10px 0 0 ;box-sizing: border-box;justify-content: center;}
 
-.header .nav_bar .list_menu{width: 400px; display: flex; justify-content: space-between;}
+.header .nav_bar .list_menu{width: 600px; display: flex; justify-content: space-between;}
 .header .nav_bar .list_items{position:relative; width:auto;
 font-weight:bold;padding:5px 10px;cursor:pointer;}
 .header .nav_bar .list_items::before{

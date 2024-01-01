@@ -104,7 +104,7 @@ export default function Login({loginCheckFunc}) {
           type="button" 
           style="btn btn_full" 
           name="로그인" 
-          onFunc={loginCheckFunc} 
+          onFunc={loginCheckFunc}
           item={txtState===true?"login":"logout"}
           disabled={txtState===true?false:"disabled"}
         />

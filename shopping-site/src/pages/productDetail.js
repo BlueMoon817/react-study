@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 import { Modal } from '../components/Modal';
 import { Text } from '../components/Text';
 import { Icon } from '../components/icon';
+import { Img } from '../components/img';
 
 export default function ProductDetail({productList, saveProduct, popupState,messageTxt,popupFunc}) {
   const params = useParams();
@@ -21,22 +22,20 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
       {popupState===true? <Modal messageTxt={messageTxt} popupFunc={popupFunc}></Modal> : ""}
       <div className='content'>
         <div className='inner'>
-        {
-          productList.map((item)=>(
-            item.id === parseInt(params.id) ? 
             <div className="detail_area">
-              <div className="img_wrap">
-                <img src={item.img} /> 
-              </div>
+              <Img
+                path={productList[params.id].img}
+                description={productList[params.id].title}
+              />
               <div className="option_wrap">
                 <div className="info_box">
-                  <strong className="text_title">{item.title}</strong>
-                  <span className="text_price">₩ {item.price}</span>
+                  <Text sort="strong" textType="title" description={productList[params.id].title}/>
+                  <Text sort="span" textType="price" description={`₩ ${productList[params.id].price}`}/>
                 </div>
                 <div className="option_area">
                   <ul className="option_list">
-                  {item.size?.map((type)=>(
-                    <li className="list_item">
+                  {productList[params.id].size?.map((type)=>(
+                    // <li className="list_item" key={Math.random()}>
                       <Button 
                         style={`btn btn_option ${selectSize===null ?"":(selectSize===type?"is_active":"")}`} 
                         name={type} 
@@ -44,7 +43,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                         item={type} 
                         onFunc={selectFunc}
                         />
-                      </li>
+                      // </li>
                     ))}
                   </ul>
                 { selectSize==null?
@@ -62,7 +61,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                       <Icon 
                         iconName="plus" 
                         iconLabel="1개 추가버튼" 
-                        onFunc={numberFunc} 
+                        onFunc={numberFunc}
                         item={number}
                       />
                       <Icon 
@@ -81,7 +80,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                   style={`btn btn_add`} 
                   btnType="button" 
                   onFunc={saveProduct} 
-                  item={item}
+                  item={productList[params.id]}
                   key={Math.random()*1000} 
                   disabled={selectSize?false:"disabled"} 
                   popupFunc={popupFunc}
@@ -94,8 +93,6 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                 />                    
               </div>
             </div>  
-            : ""
-          ))}
         </div>
       </div>
     </div>

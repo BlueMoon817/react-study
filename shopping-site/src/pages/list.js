@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from '../components/Button';
 import { Text } from '../components/Text';
-
+import { Img } from '../components/img';
 export default function List({ list, productList, deleteFunc}) {
   return (
     <div className="wrap">
@@ -21,23 +21,24 @@ export default function List({ list, productList, deleteFunc}) {
                 productList.map((item)=>(
                   list.map((listItem)=>(
                     item.id === listItem[0].id ? 
-                      <li className="list_item">
+                      <li className="list_item" key={item.id}>
                         <Link to={`/product/${item.id}`}>
-                        <div className="img_wrap thumb_img">
-                          <img src={item.img} />
-                        </div>
-                        <div className="text_wrap">
-                          <Text textType="title" description={item.title} sort="p"/>
-                          <div className='text_area'>
-                            <Text textType="price" description={listItem.number>1?`${listItem.price}` : `${item.price}`} sort="strong"/>
-                            {
-                              listItem.number>1?
-                              <Text textType="price" description={`( ${listItem.number}개 * ${item.price} )`} sort="strong"/>:""
-                            }
-                            <Text textType="price" description={`사이즈 : ${listItem.size}`} sort="strong"/>
+                          <Img
+                            imgName="thumb_img"
+                            path={item.img}
+                            description={item.title}
+                          />
+                          <div className="text_wrap">
+                            <Text textType="title" description={item.title} sort="p"/>
+                            <div className='text_area'>
+                              <Text textType="price" description={listItem.number>1?`${listItem.price}` : `${item.price}`} sort="strong"/>
+                              {
+                                listItem.number>1?
+                                <Text textType="price" description={`( ${listItem.number}개 * ${item.price} )`} sort="strong"/>:""
+                              }
+                              <Text textType="price" description={`사이즈 : ${listItem.size}`} sort="strong"/>
+                            </div>
                           </div>
-
-                        </div>
                         </Link>
                         {/* 상품지우기 버튼 */}
                         <Button 

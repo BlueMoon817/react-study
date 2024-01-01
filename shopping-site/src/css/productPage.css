@@ -51,7 +51,12 @@
   overflow: hidden;
   border-radius: 10px;
 }
-
+.page-product .product_list .img_wrap .ic{
+  position:absolute;
+  right:15px;
+  top:5px;
+  transform: translate(0,0);
+}
 .page-product .product_list .list_item img {
   width: 100%;
   transform: scale(1);
@@ -67,7 +72,6 @@
   border-radius: 10px;
   content: '';
 }
-
 .page-product .product_list .list_item:hover .img_wrap::after {
   border: 2px solid skyblue;
 }

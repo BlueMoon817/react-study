@@ -6,7 +6,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { Input } from './input';
 import { Button } from './Button';
 
-export default function Navbar({stateLogin, loginCheckFunc, searchFunc, on}) {
+export default function Navbar({stateLogin, loginCheckFunc, searchFunc, searchUI}) {
   const [inputOb, setInputOb] = useState([{
     key:0,
     sort:"search",
@@ -27,7 +27,6 @@ export default function Navbar({stateLogin, loginCheckFunc, searchFunc, on}) {
   const params=useLocation();
   if(params.pathname!=="/login"){
     return (
-    <>
       <header className="header">
         {/* stateLogin은 네비게이션에서는 text로 받아온다. 다른 페이지에서는 불리언 값으로 받아오기. */}
           <div className="util_area"><Link to={stateLogin==="로그인"?"/login":"/"} onClick={()=>{
@@ -40,12 +39,16 @@ export default function Navbar({stateLogin, loginCheckFunc, searchFunc, on}) {
           <div className="logo_area"><h1><Link to="/" className="logo"></Link></h1></div>
           <nav className="nav_bar">
             <ul className="list_menu">
-              <li className="list_items"><Link to="/" onClick={()=>{ on("Home"); }}>Home</Link></li>
-              <li className="list_items"><Link to="/" onClick={()=>{ on("상의"); }}>상의</Link></li>
-              <li className="list_items"><Link to="/" onClick={()=>{ on("하의"); }}>하의</Link></li>
-              <li className="list_items"><Link to="/list" onClick={()=>{ on("장바구니"); }}>장바구니</Link></li>
-              <li className="list_items"><Link to="/info" onClick={()=>{ on("My Info"); }}>My Info</Link></li>
+              <li className="list_items"><Link to="/" >Home</Link></li>
+              <li className="list_items"><Link to="/top" >Top</Link></li>
+              <li className="list_items"><Link to="/pants" >Pants</Link></li>
+              <li className="list_items"><Link to="/list" >장바구니</Link></li>
+              <li className="list_items"><Link to="/info" >My Info</Link></li>
+              <li className="list_items"><Link to="/qna" >고객센터</Link></li>
             </ul>
+            
+        {
+          searchUI==="/top" || searchUI ==="pants" || searchUI==="/" ?
           <div className="search_box">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="ic_search"/>
             <Input 
@@ -53,18 +56,18 @@ export default function Navbar({stateLogin, loginCheckFunc, searchFunc, on}) {
               inputOb={inputOb}
               onFunc={getKeyword}
              />
-            <Button type="button" style="btn btn_search" onFunc={searchFunc} item={keywordTxt} name="검색" />
-          </div>
-          </nav>
-        </header>
-    </>)  
+            <Button type="button" style="btn btn_search" onFunc={searchFunc} item={keywordTxt}
+            path={params.pathname}
+            name="검색" />
+          </div>:""
+        }
+        </nav>
+      </header>)  
   }else if(params.pathname==="/login"){
     return (
-      <>
         <header className="header">
          <div className="logo_area"><h1><Link to="/login" className="logo"></Link></h1></div>
         </header>
-      </>
     )
   }
 }

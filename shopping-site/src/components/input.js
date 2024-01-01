@@ -11,7 +11,7 @@ export const Input= ({inputOb, onFunc, num, changeIcon, opacity})=>{
           onChange={(e)=>{
             onFunc(e,null,inputOb[num], inputOb[num].type)
           }}
-          value={inputOb[num].val}
+          value={inputOb[num].val||""}
         />
       {
         inputOb[num].sort==="password" && inputOb[num].type==="text"?
