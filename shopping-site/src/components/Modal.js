@@ -12,15 +12,16 @@ export const Modal = ({messageTxt, popupFunc}) => {
           <Button 
             btnType="button" 
             style='btn btn_close'
-            name="계속 쇼핑하기" 
+            name="계속 쇼핑하기"
             onFunc={popupFunc}
+            item="계속 쇼핑하기"
           />
           <Button 
             btnType="button" 
             style='btn btn_close'
             name="장바구니로" 
-            onFunc={popupFunc} 
-            movePage="/list"
+            onFunc={popupFunc}
+            item="장바구니로"
           />
         </div>
       </div>

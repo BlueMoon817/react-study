@@ -48,17 +48,21 @@ export default function Navbar({stateLogin, loginCheckFunc, searchFunc, searchUI
             </ul>
             
         {
-          searchUI==="/top" || searchUI ==="pants" || searchUI==="/" ?
+          searchUI==="/top" || searchUI ==="/pants" || searchUI==="/" ?
           <div className="search_box">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="ic_search"/>
             <Input 
               num="0"
               inputOb={inputOb}
               onFunc={getKeyword}
-             />
-            <Button type="button" style="btn btn_search" onFunc={searchFunc} item={keywordTxt}
-            path={params.pathname}
-            name="검색" />
+            />
+            <Button 
+              name="검색"
+              btnType="button" 
+              style="btn btn_search" 
+              onFunc={searchFunc} 
+              item={{ keywordTxt, pathTxt:params.pathname }}
+            />
           </div>:""
         }
         </nav>

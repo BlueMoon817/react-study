@@ -10,8 +10,8 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
   const params = useParams();
   // 상품 사이즈선택
   const [selectSize, setSelectSize] = useState(null);
-  const selectFunc=(name) => {
-    setSelectSize(name);
+  const selectFunc=(type) => {
+    setSelectSize(type);
   };
   const [number, setNumber]=useState(1);
   const numberFunc=(num)=>{
@@ -33,19 +33,17 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                   <Text sort="span" textType="price" description={`₩ ${productList[params.id].price}`}/>
                 </div>
                 <div className="option_area">
-                  <ul className="option_list">
-                  {productList[params.id].size?.map((type)=>(
-                    // <li className="list_item" key={Math.random()}>
-                      <Button 
-                        style={`btn btn_option ${selectSize===null ?"":(selectSize===type?"is_active":"")}`} 
-                        name={type} 
-                        btnType="button" 
-                        item={type} 
-                        onFunc={selectFunc}
-                        />
-                      // </li>
-                    ))}
-                  </ul>
+                  <div className="btn_group">
+                  {productList[params.id].size.map((type, index)=>(
+                    <Button key={`${type}${index}`}
+                      style={`btn btn_option ${selectSize===null ?"":(selectSize===type?"is_active":"")}`} 
+                      name={type} 
+                      btnType="button" 
+                      item={type}
+                      onFunc={selectFunc}
+                    />))
+                  }
+                  </div>
                 { selectSize==null?
                   <Text description="사이즈를 선택해주세요" sort="p"/>
                   :""
@@ -61,14 +59,16 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                       <Icon 
                         iconName="plus" 
                         iconLabel="1개 추가버튼" 
-                        onFunc={numberFunc}
-                        item={number}
+                        onClick={() => {
+                          numberFunc(number + 1)
+                        }} 
                       />
                       <Icon 
                         iconName="minus" 
                         iconLabel="1개 삭제 버튼" 
-                        onFunc={numberFunc} 
-                        item={number}
+                        onClick={()=>{
+                          numberFunc(number>1?number-1:number)
+                        }} 
                       />
                     </div>
                   </div>
@@ -76,14 +76,12 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                 <Text sort="p" description="수량을 선택해주세요." />
                 <Button 
                   name="추가"
-                  itemInfo={{number, selectSize}}
                   style={`btn btn_add`} 
                   btnType="button" 
-                  onFunc={saveProduct} 
-                  item={productList[params.id]}
+                  onFunc={saveProduct}
+                  item={{item: productList[params.id], number, selectSize}}
                   key={Math.random()*1000} 
-                  disabled={selectSize?false:"disabled"} 
-                  popupFunc={popupFunc}
+                  disabled={selectSize?false:"disabled"}
                 />
                 <Button 
                   itemInfo={{number, selectSize}}

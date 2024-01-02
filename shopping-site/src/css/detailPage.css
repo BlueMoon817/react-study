@@ -17,29 +17,26 @@
   box-sizing: border-box;
 }
 
-.page-detail .option_list {
-  display: flex;
-  margin-top: 30px;
-}
 
-.option_list+.text_desc {
+.option_area .btn_group+.text_desc {
   margin-top: 10px;
   font-size: 12px;
   color: orangered;
 }
 
-.page-detail .option_list .list_item {
-  width: calc((100% - 20px)/3);
-}
 
-.page-detail .option_list button {
+.page-detail .option_area .btn_group{
+  margin-top: 30px;
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-detail .option_area .btn_group button {
+  margin-top: 0;
+  width: calc((100% - 20px)/3);
   outline: none;
   cursor: pointer;
   height: 30px;
-}
-
-.page-detail .option_list .list_item:not(:nth-of-type(1)) {
-  margin-left: 10px;
 }
 
 .page-detail .option_wrap .text_title {

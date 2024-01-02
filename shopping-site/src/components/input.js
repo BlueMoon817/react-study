@@ -1,39 +1,52 @@
-import React from "react";
+import React, {useState} from "react";
 import { Icon } from './icon';
 
-export const Input= ({inputOb, onFunc, num, changeIcon, opacity})=>{
+export const Input = ({ item, onFunc })=>{
+  
+  const [stateText, setStateTxt]=useState(null);
     return (
-      <div className={`input_box${opacity===true?" input_focus":""}`}>
+      <div className={`input_box${item&&item.stateIcon==="show"?" input_focus":""}`}>
         <input 
-          type={inputOb[num].type} 
-          className={`input_field ${inputOb[num].style?inputOb[num].style:""}`} 
-          placeholder={inputOb[num].guide} 
+          type={item && item.type}
+          className={`input_field${item && item.style}`} 
+          placeholder={item &&item.guide}
+          value={stateText}
           onChange={(e)=>{
-            onFunc(e,null,inputOb[num], inputOb[num].type)
+            onFunc({
+              input: item,
+              val: e.target.value!==null ? e.target.value : ""
+            });
+            setStateTxt(e.target.value !== null ? e.target.value : "")
           }}
-          value={inputOb[num].val||""}
         />
       {
-        inputOb[num].sort==="password" && inputOb[num].type==="text"?
+        item &&item.sort === "password" && item.type==="text"?
         <Icon 
           iconName='view' 
           iconLabel="비밀번호 숨기기"
-          changeIcon={changeIcon}
-          inputOb={inputOb[num]}
+          onClick={() => {
+            onFunc({ input: item, state: "view", val: stateText });
+          }}
         />
-        :(inputOb[num].sort==="password"&& inputOb[num].type==="password"?
+        : (item && item.sort === "password" && item.type==="password"?
         <Icon 
           iconName='hidden' 
           iconLabel="비밀번호 보기"
-          changeIcon={changeIcon}
-          inputOb={inputOb[num]}
+          onClick={()=>{
+            onFunc({ input: item, state: "hidden", val:stateText });
+          }}
         />
-      :(inputOb[num].sort !=="password" && inputOb[num].type==="text"?
+        : (item && item.sort !== "password" && item.type==="text"?
         <Icon 
           iconName='clear' 
           iconLabel="삭제하기"
-          changeIcon={changeIcon}
-          inputOb={inputOb[num]}
+          onClick={()=>{
+            onFunc({
+              input: item,
+              val:"",
+            });
+            setStateTxt("");
+          }}
         />
       :""))
     }

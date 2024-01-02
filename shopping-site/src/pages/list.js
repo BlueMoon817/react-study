@@ -31,7 +31,7 @@ export default function List({ list, productList, deleteFunc}) {
                           <div className="text_wrap">
                             <Text textType="title" description={item.title} sort="p"/>
                             <div className='text_area'>
-                              <Text textType="price" description={listItem.number>1?`${listItem.price}` : `${item.price}`} sort="strong"/>
+                              <Text textType="price" description={listItem.number>1?`${listItem.price}`:`${item.price}`} sort="strong"/>
                               {
                                 listItem.number>1?
                                 <Text textType="price" description={`( ${listItem.number}개 * ${item.price} )`} sort="strong"/>:""

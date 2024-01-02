@@ -2,58 +2,56 @@ import React,{useEffect, useState, useRef} from 'react';
 import { Input } from '../components/input';
 import { Button } from '../components/Button';
 import { Text } from '../components/Text';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Login({loginCheckFunc}) {
-  const [opacity, setOpacity]=useState('');
-  const changeIcon=(state, input, inputType, opacity)=>{
-    onChangeInput(null, state, input, inputType, opacity);
-  }
+  const navigate=useNavigate();
   // input update
   const [inputOb, setInputOb]=useState(
     [
       { key:0, 
         sort:"id", 
         type:"text", 
-        val:null, 
+        val: null, 
         focus: false, 
         guide:"아이디를 입력하세요.", 
-        style:"input_text",
+        style:" input_text",
         icon: "clear",
-        opacity:{opacity}
+        stateIcon: "hide"
       }, 
       { key:1, 
         sort:"password", 
         type:"password", 
-        val:null, 
+        val: null, 
         focus:false, 
+        style:"",
         guide:"비밀번호를 입력하세요", 
-        style:null,
-        icon: "hidden"
+        icon: "hidden",
+        stateIcon: "hide"
       }
     ]);
-    
 
   // 로그인 상태 업데이트 함수
   const [txtState, setTxtState]= useState('');
-
   // input 업데이트
-  const onChangeInput=(e, state, input, inputType, opacity)=>{
-      if(e!==null&& opacity!=="hide"){
-        input.val=e.target.value;
+  const onChangeInput=(item)=>{
+    item.input.val = item.val;
+    if (item.input.icon === "clear"){
+      if(item.val !== '' && item.val !==null) {
+        item.input.stateIcon="show"
+      }else{
+        item.input.stateIcon = "hide"
       }
-      if(state!==null){
-        input.icon=state;
-      }
-      if(inputType!==null){
-        input.type=inputType;
-      }
-      if(e===null && opacity==="hide"){
-        input.val='';
-        setOpacity(false);
-      }
-      setInputOb([...inputOb]);
+    } else if(item.state==="view"){
+      item.input.stateIcon = "hide"
+      item.input.type="password"
+    } else if(item.state === "hidden"){
+      item.input.stateIcon = "show"
+      item.input.type = "text"
+    }
+    setInputOb([...inputOb]);
   }
 
   // input 변화 감지
@@ -66,12 +64,7 @@ export default function Login({loginCheckFunc}) {
         setTxtState(true);
       }
     }
-    // 클리어버튼 상태
-    if(inputOb[0].val!==null && inputOb[0].val!==''){
-      setOpacity(true);
-    }else if((inputOb[0].val!==null && inputOb[0].val==='' && inputOb[1].val!==null)){
-      setOpacity(false);
-    }
+
   }, [inputOb]);
   
   return (
@@ -79,17 +72,12 @@ export default function Login({loginCheckFunc}) {
      <div className='content'>
       <div className="inner">
         <Input 
-          num="0"
-          inputOb={inputOb}
+          item={inputOb[0]} 
           onFunc={onChangeInput}
-          changeIcon={changeIcon}
-          opacity={opacity}
         />
         <Input
-          num="1"
-          inputOb={inputOb}
+          item={inputOb[1]} 
           onFunc={onChangeInput}
-          changeIcon={changeIcon}
         />
         {
           txtState===false? 
@@ -104,8 +92,15 @@ export default function Login({loginCheckFunc}) {
           type="button" 
           style="btn btn_full" 
           name="로그인" 
-          onFunc={loginCheckFunc}
-          item={txtState===true?"login":"logout"}
+          onClick={()=>{
+            if (txtState === true){
+              loginCheckFunc("login");
+              navigate('/login')
+            }else {
+              loginCheckFunc("logout");
+            }
+           }
+          }
           disabled={txtState===true?false:"disabled"}
         />
       </div>

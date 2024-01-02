@@ -2,15 +2,18 @@
 .header{width: 100%;padding: 0 80px;position: fixed;left: 0;top: 0;box-sizing: border-box;background: #faf4f4;z-index: 30;}
 .header .util_area{width: 100%; text-align: right;padding: 10px 0;box-sizing: border-box;}
 .header .logo_area{width: 100%; text-align: center;padding: 10px 0;box-sizing: border-box;}
-.header .nav_bar{position: relative; display: flex; width: 100%; padding: 10px 0 0 ;box-sizing: border-box;justify-content: center;}
+.header .nav_bar{position: relative; display: flex; width: 100%; padding: 10px 0 5px ;box-sizing: border-box;justify-content: center;}
 
-.header .nav_bar .list_menu{width: 600px; display: flex; justify-content: space-between;}
+.header .nav_bar .list_menu{width: 550px; display: flex; justify-content: space-between;}
 .header .nav_bar .list_items{position:relative; width:auto;
-font-weight:bold;padding:5px 10px;cursor:pointer;}
+font-weight:bold;cursor:pointer;}
+.header .nav_bar .list_items >a{
+padding:5px 10px;
+}
 .header .nav_bar .list_items::before{
   content: '';
   position:absolute;
-  bottom:0;
+  bottom:-5px;
   width:0px;
   height:2px;
   background-color:rgb(245, 130, 22);

@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {useEffect, useState} from "react";
-import {Routes, Route, useLocation} from "react-router-dom";
+import {Routes, Route, useLocation, useNavigate} from "react-router-dom";
 import Main from './pages/main';
 import Login from './pages/login';
 import Navbar from './components/Navbar';
@@ -11,6 +11,7 @@ import PrivatePage from './pages/PrivatePage.js';
 function App() {
   // 현재페이지체크
   const paths=useLocation();
+  const navigate=useNavigate();
   // 페이지 클래스 업데이트 변수
   const [urlPath, setClassName] = useState("page-product");
   // 로그인여부체크
@@ -78,18 +79,21 @@ function App() {
   }
   
   // 장바구니 목록 업데이트 함수
-  const saveProduct = (item, number, size) => {
+  const saveProduct = (item, name) => {
     // 다차배열을 사용해서 item이 아닌 list에 고유의 key값을 넣어준다.
     //[ [{item}, key], [{item}, key], [{item}, key], [{item}, key] ]
     setSavePdt(function(){
-      let save= savePdt?[...savePdt, [item]]:[[item]];
+      let save = savePdt ? [...savePdt, [item.item]] : [[item.item]];
       save[save.length-1].key = Math.random()*1000;
-      if(number){
-        save[save.length-1].number=number;
-        save[save.length-1].price=number * item.price;
+      if (item.number){
+        save[save.length - 1].number = item.number;
+        save[save.length - 1].price = item.number * item.item.price;
       }
-      if(size){
-        save[save.length-1].size=size;
+      if (item.selectSize){
+        save[save.length - 1].size = item.selectSize;
+      }
+      if(name==="추가"){
+        popupFunc(name);
       }
       return [...save]})
   }
@@ -106,11 +110,17 @@ function App() {
   
   // 팝업 상태 업데이트함수
   const popupFunc=(name)=>{
-    if(name==="추가"){
+    if (name==="추가"){
       // 팝업 띄우기
       setMessageTxt("장바구니에 상품이 추가되었습니다.");
       setPopupState(true);
-    }else if(name==="계속 쇼핑하기" || name==="장바구니로" ){
+
+    } else if (name === "계속 쇼핑하기"){
+      // 팝업 닫기
+      setMessageTxt("");
+      setPopupState(false);
+    } else if (name === "장바구니로"){
+      navigate('/list');
       // 팝업 닫기
       setMessageTxt("");
       setPopupState(false);
@@ -125,12 +135,12 @@ function App() {
   }, []);
   
   // 검색
-  const searchFunc=(path, keyword)=>{
-    if(keyword){
+  const searchFunc=(ob)=>{
+    if (ob.keywordTxt!==''){
     let list=[];
-    if(path==="/top"){
+      if (ob.pathTxt ==="/top"){
       topList.map((item, index)=>{
-        if(item.title.indexOf(keyword)!==-1){
+        if (item.title.indexOf(ob.keywordTxt)!==-1){
           list.push(item);
         }
         if(index===topList.length-1){
@@ -142,9 +152,9 @@ function App() {
           setUpdateList(true);
         }   
       })
-    }else if(path==="/pants"){
+      } else if (ob.pathTxt ==="/pants"){
       pantsList.map((item, index)=>{
-        if(item.title.indexOf(keyword)!==-1){
+        if (item.title.indexOf(ob.keywordTxt)!==-1){
           list.push(item);
         }
         if(index===pantsList.length-1){
@@ -156,9 +166,9 @@ function App() {
           setUpdateList(true);
         }   
       })
-    }else if(path==="/"){
+    } else if (ob.pathTxt ==="/"){
       productList.map((item, index)=>{
-        if(item.title.indexOf(keyword)!==-1){
+        if (item.title.indexOf(ob.keywordTxt)!==-1){
           list.push(item);
         }
         if(index===productList.length-1){
@@ -217,7 +227,7 @@ function App() {
           path="/"
           element={
             <Main 
-              productList={productList}
+              productList={updateList === true ? searchList : productList}
               saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
@@ -228,7 +238,7 @@ function App() {
           path="/pants"
           element={
             <Main 
-              productList={pantsList}
+              productList={updateList === true ? searchList : pantsList}
               saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
@@ -239,7 +249,7 @@ function App() {
           path="/top"
           element={
             <Main 
-              productList={topList}
+              productList={updateList === true ? searchList : topList}
               saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
