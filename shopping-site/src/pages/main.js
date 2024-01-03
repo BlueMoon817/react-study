@@ -2,9 +2,10 @@ import React from "react";
 import { ProductCard } from "../components/ProductCard";
 import { Text } from '../components/Text';
 import { Icon } from '../components/icon';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 export default function Main({ productList, saveProduct, updateLikeData,authenticate }){
-  const navigate=useNavigate()
+  const navigate=useNavigate();
+  const paths=useLocation();
   return(
     <div className="wrap">
       <div className='content'>
@@ -22,21 +23,25 @@ export default function Main({ productList, saveProduct, updateLikeData,authenti
                     saveProduct={saveProduct}
                   />
                   <Icon 
-                    iconName={menu.name?menu.name:"heart"}
-                    iconLabel={menu.like?"관심상품 취소하기":"관심상품으로 등록하기"}
+                    iconName={menu.like.name}
+                    iconLabel={menu.like.state?"관심상품 취소하기":"관심상품으로 등록하기"}
                     onClick={()=>{
                       if (authenticate){
-                        updateLikeData((menu)=>{
-                          if ( menu.name==="heart"){
-                            menu.state="fill"
-                            menu.name="heart_filled"
-                            return menu;
-                          }else if(menu.name==="heart_filled"){
-                            menu.state="empty"
-                            menu.name="heart"
-                            return menu;
-                          }
-                        });
+                        if(menu.like.state){
+                        return updateLikeData({
+                            item:menu,
+                            id:menu.id,
+                            state:false,
+                            name:"heart"
+                          })
+                        }else{
+                        return updateLikeData({
+                            item:menu,
+                            id:menu.id,
+                            state:true,
+                            name:"heart_filled"
+                          })
+                        }
                       }else {
                         navigate('/login');
                       }

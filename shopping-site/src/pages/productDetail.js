@@ -19,7 +19,25 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
   }
   return (
     <div className="wrap">
-      {popupState===true? <Modal messageTxt={messageTxt} popupFunc={popupFunc}></Modal> : ""}
+      {popupState===true? 
+        <Modal 
+          type={{cate:"basic", messageTxt}}
+          popupInfo={[
+              {
+                name:"계속 쇼핑하기", 
+                style:"btn btn_close",
+                on:{state:false, description:"", path:null, }
+                }, 
+              {
+                name:"장바구니로",
+                style:"btn btn_close",
+                on:{state:false, description:"", path:"/list"}
+              }
+            ]
+        }
+        popupFunc={popupFunc} 
+        /> : ""
+      }
       <div className='content'>
         <div className='inner'>
             <div className="detail_area">
@@ -30,7 +48,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
               <div className="option_wrap">
                 <div className="info_box">
                   <Text sort="strong" textType="title" description={productList[params.id].title}/>
-                  <Text sort="span" textType="price" description={`₩ ${productList[params.id].price}`}/>
+                  <Text sort="span" textType="price" description={`₩ ${productList[params.id].price * number}`}/>
                 </div>
                 <div className="option_area">
                   <div className="btn_group">
@@ -40,7 +58,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                       name={type} 
                       btnType="button" 
                       item={type}
-                      onFunc={selectFunc}
+                      onClick={selectFunc}
                     />))
                   }
                   </div>
@@ -78,17 +96,26 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                   name="추가"
                   style={`btn btn_add`} 
                   btnType="button" 
-                  onFunc={saveProduct}
-                  item={{item: productList[params.id], number, selectSize}}
+                  onClick={()=>{
+                   if( selectSize!==null){
+                    saveProduct({item: productList[params.id], number, selectSize});
+                    popupFunc({state:true, description:"장바구니에 상품이 추가되었습니다."});
+                   }
+                  }}
                   key={Math.random()*1000} 
                   disabled={selectSize?false:"disabled"}
                 />
+                {
+                  selectSize===null?                
+                  <Text sort="p" description="사이즈를 선택해주세요." />: ""
+                }
                 <Button 
                   itemInfo={{number, selectSize}}
                   name="바로구매하기"
                   style={`btn`} 
                   btnType="button"
-                />                    
+                />
+                                 
               </div>
             </div>  
         </div>

@@ -13,7 +13,7 @@
         "L"
       ],
       "type":"pants",
-      "like":false
+      "like":{"state":false, "name":"heart"}
     },
     {
       "id": 1,
@@ -28,7 +28,7 @@
         "L"
       ],
       "type":"top",
-      "like":false
+      "like":{"state":false, "name":"heart"}
     },
     {
       "id": 2,
@@ -43,7 +43,7 @@
         "L"
       ],
       "type":"pants",
-      "like":false
+      "like":{"state":false, "name":"heart"}
     },
     {
       "id": 3,
@@ -58,7 +58,7 @@
         "L"
       ],
       "type":"dress",
-      "like":false
+      "like":{"state":false, "name":"heart"}
     },
     {
       "id": 4,
@@ -73,7 +73,7 @@
         "L"
       ],
        "type":"top",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 5,
@@ -88,7 +88,7 @@
         "L"
       ],
        "type":"top",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 6,
@@ -103,7 +103,7 @@
         "L"
       ],
        "type":"top",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 7,
@@ -118,7 +118,7 @@
         "L"
       ],
        "type":"top",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 8,
@@ -133,7 +133,7 @@
         "L"
       ],
        "type":"top",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 9,
@@ -148,7 +148,7 @@
         "L"
       ],
        "type":"top",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 10,
@@ -163,7 +163,7 @@
         "L"
       ],
        "type":"pants",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 11,
@@ -178,7 +178,7 @@
         "L"
       ],
        "type":"pants",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 12,
@@ -193,7 +193,7 @@
         "L"
       ],
        "type":"top",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     },
     {
       "id": 13,
@@ -208,7 +208,7 @@
         "L"
       ],
        "type":"pants",
-       "like":false
+       "like":{"state":false, "name":"heart"}
     }
   ]
 }

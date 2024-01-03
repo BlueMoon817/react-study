@@ -1,30 +1,23 @@
 import React from "react";
 import { Button } from './Button';
 import { Text } from './Text';
-export const Modal = ({messageTxt, popupFunc}) => {
-
+import { useNavigate } from 'react-router-dom';
+import {ModalContentBasic} from './ModalContentBasic'
+import {ModalContentField} from './ModalContentField'
+export const Modal = ({type, popupFunc, popupInfo}) => {
+  const navigate=useNavigate();
   return (
     <div className={`popup_wrap`}>
       <div className='popup_dim'></div>
-      <div className='popup_content'>
-        <Text sort="p" description={messageTxt}/>
-        <div className='btn_group btn_half'>
-          <Button 
-            btnType="button" 
-            style='btn btn_close'
-            name="계속 쇼핑하기"
-            onFunc={popupFunc}
-            item="계속 쇼핑하기"
-          />
-          <Button 
-            btnType="button" 
-            style='btn btn_close'
-            name="장바구니로" 
-            onFunc={popupFunc}
-            item="장바구니로"
-          />
-        </div>
+      {
+        type.cate==="basic"?
+        <ModalContentBasic type={type} popupFunc={popupFunc} popupInfo={popupInfo}/>
+          :(type.cate==="field"?
+            <ModalContentField type={type} popupFunc={popupFunc} popupInfo={popupInfo}/> :""
+          )
+      
+        }
+
       </div>
-    </div>
-  )
-}
+    )
+  }

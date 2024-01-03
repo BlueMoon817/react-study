@@ -44,7 +44,7 @@ export default function List({ list, productList, deleteFunc}) {
                         <Button 
                           btnType="button"
                           style="btn_icon btn_delete"
-                          onFunc={deleteFunc}
+                          onClick={deleteFunc}
                           item={listItem}
                         />
                       </li>

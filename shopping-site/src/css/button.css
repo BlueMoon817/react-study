@@ -68,3 +68,16 @@
   font-size:12px;
   margin-top:0;
 }
+
+.btn_group.btn_half{
+  margin-top:40px;
+  display:flex;
+  justify-content:space-between;
+}
+.btn_group.btn_half .btn{
+  width:calc(50% - 6px);
+  margin-top:0;
+}
+.btn_group.btn_half .btn+.btn{
+  margin-top:0;
+}

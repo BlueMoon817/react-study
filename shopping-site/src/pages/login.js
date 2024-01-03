@@ -35,6 +35,7 @@ export default function Login({loginCheckFunc}) {
 
   // 로그인 상태 업데이트 함수
   const [txtState, setTxtState]= useState('');
+  
   // input 업데이트
   const onChangeInput=(item)=>{
     item.input.val = item.val;
@@ -64,7 +65,6 @@ export default function Login({loginCheckFunc}) {
         setTxtState(true);
       }
     }
-
   }, [inputOb]);
   
   return (
@@ -94,10 +94,9 @@ export default function Login({loginCheckFunc}) {
           name="로그인" 
           onClick={()=>{
             if (txtState === true){
-              loginCheckFunc("login");
-              navigate('/login')
+              loginCheckFunc({state:"login", path:"/"});
             }else {
-              loginCheckFunc("logout");
+              loginCheckFunc({state:"logout"});
             }
            }
           }

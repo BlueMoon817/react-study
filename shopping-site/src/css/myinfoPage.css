@@ -1,0 +1,144 @@
+
+.page-myinfo .title_xlarge{
+  text-align:center;
+  font-size:28px;
+  color:#2d2d2d;
+}
+.page-myinfo .edit_area{
+  margin-top:40px;
+}
+.page-myinfo .edit_area .title_large{
+  font-size:16px;
+  font-weight:bold;
+  color:#000;
+  text-indent: 5px;
+}
+.page-myinfo .field_area{
+  margin-top:10px;
+  padding:20px;
+  box-sizing: border-box;
+  border-radius:4px;
+  border:1px solid #ddd;
+}
+.page-myinfo .field_area .text_desc{
+  display:block;
+  font-size:14px;
+  
+}
+.page-myinfo .field_area .list_item{
+    min-height: 40px;
+    cursor:pointer;
+    position: relative;
+    display:flex;
+    width:100%;
+    box-sizing: border-box;
+    border:0;
+    background-color:transparent;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+}
+
+.page-myinfo .field_area span.text_desc{
+  margin-top:10px;
+  font-size:13px;
+}
+.page-myinfo .field_area .list_item .text_wrap{
+  padding:5px;
+  box-sizing: border-box;
+}
+.page-myinfo .field_area .list_item:not(:nth-of-type(1)){
+  margin-top:8px;
+}
+
+.page-myinfo .edit_info_area{
+  display:flex;
+  margin-top:30px;
+  box-sizing: border-box;
+  justify-content:center;
+  align-items:center;
+  height:50px;
+}
+.page-myinfo .edit_info_area .input_box{
+  width:100%;
+}
+.page-myinfo .edit_info_area .btn_small{
+  cursor:pointer;
+  width:60px;height:30px;
+  border:0;
+  background-color:coral;
+  border-radius:4px;
+  color:#000;
+  transition: 0.3s;
+  margin-left:10px;
+  font-weight:bold;
+  line-height:30px;
+}
+.page-myinfo .edit_info_area .input_edit{
+  margin-top:0;
+}
+.page-myinfo .edit_info_area .btn_small:hover{
+  background-color:#000;
+  color:#fff;
+}
+.page-myinfo .edit_info_area .text_desc{
+  font-size:13px;
+}
+
+.page-myinfo .like_area{
+  padding-bottom:100px;
+  margin-top:40px;
+}
+.page-myinfo .like_area .title_large{
+  font-size: 16px;
+  font-weight: bold;
+  color: orangered;
+  text-indent: 5px;
+}
+.page-myinfo .like_area .title_large +.text_desc{
+  margin-top:50px;
+}
+
+.page-myinfo .like_area .list_pdt{
+  padding:10px 0;
+  margin-top:10px;
+  max-height:300px;
+  min-height:100px;
+  overflow-y: auto;
+  border:1px solid #ddd;
+  border-radius:4px;
+  background-color:#ddd;
+}
+.page-myinfo .like_area .list_pdt .list_item{
+  padding:0 20px;
+  position:relative;
+}
+.page-myinfo .like_area .list_pdt .list_item a{
+  display: flex;
+  border-bottom: 1px solid #000;
+  padding:10px 0 10px 5px;
+}
+.page-myinfo .like_area .text_wrap{
+  width:calc(100% - 130px);
+  padding-top:10px;
+  box-sizing: border-box;
+  margin-left:30px;
+  text-align:right;
+}
+.page-myinfo .like_area .thumb_img{
+  border-radius:4px;
+  overflow:hidden;
+  width:50px;
+}
+.page-myinfo .like_area .thumb_img img{
+  width:100%;
+}
+.page-myinfo .like_area .text_title{
+  font-weight:bold;
+  font-size:15px;
+}
+.page-myinfo .like_area .btn_delete{
+  right:10px;
+  top:10px;
+}

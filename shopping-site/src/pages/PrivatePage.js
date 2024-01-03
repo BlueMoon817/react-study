@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import MyListPage from './mylistPage';
 import CustomerPage from './CustomerPage';
 
-export default function PrivatePage({authenticate, popupFunc, popupState, messageTxt, saveProduct, productList, path}){
+export default function PrivatePage({authenticate, popupFunc, popupState, messageTxt, saveProduct, productList, path,updateLikeData}){
   return(
     <>
     {
@@ -16,6 +16,7 @@ export default function PrivatePage({authenticate, popupFunc, popupState, messag
         popupFunc={popupFunc}
         productList={productList}
         saveProduct={saveProduct}
+        updateLikeData={updateLikeData}
       />:
       
       (authenticate && path!=="qna"?

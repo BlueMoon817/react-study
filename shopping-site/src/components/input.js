@@ -8,7 +8,7 @@ export const Input = ({ item, onFunc })=>{
       <div className={`input_box${item&&item.stateIcon==="show"?" input_focus":""}`}>
         <input 
           type={item && item.type}
-          className={`input_field${item && item.style}`} 
+          className={`input_field ${item&&item.style}`} 
           placeholder={item &&item.guide}
           value={stateText}
           onChange={(e)=>{

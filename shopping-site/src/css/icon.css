@@ -118,3 +118,16 @@
   background-repeat: no-repeat;
   background-size: 100%;
 }
+
+.ic.ic_arrow{
+  position:static;
+  margin-right:10px;
+  display:block;
+  width: 16px;
+  transform: translate(0,0);
+  height: 16px;
+  background-image: url(../img/ic_arrow_forward_20px.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  cursor:pointer;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 
 export const Button = ({ btnType, style, name, onClick, item, disabled}) => {
 
@@ -8,8 +8,8 @@ export const Button = ({ btnType, style, name, onClick, item, disabled}) => {
         className={`${style}`}
         disabled={disabled}
         onClick={
-        () => { return item ? onClick(item, name) : onClick}
+        () => { return item ? onClick(item, name) : onClick()}
         }
-      >{name}</button>
+      >{name?name:""}</button>
   )
 }

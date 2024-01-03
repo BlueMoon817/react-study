@@ -28,25 +28,35 @@ function App() {
   const [messageTxt,setMessageTxt] = useState('');
   // 검색
   const [searchList, setSearchList]=useState([]);
-  
-  // top 상품목록
-  const [topList, setTopList]=useState([]);
-  // pants 상품 목록
-  const [pantsList, setPantsList]=useState([]);
-  
-  const [updateList, setUpdateList]=useState(false);
   //관심 상품목록
   const [likeList, setLikeList] = useState([]);
   
   const updateLikeData= (icon)=>{
-    setLikeList([...likeList, icon]);
+    let list=[];
+    productList.map((item, index)=>{
+      if(item.id===icon.id){
+        item.like.name=icon.name;
+        item.like.state=icon.state;
+        setProductList([...productList]);
+      }
+      if(item.like.state){
+        list.push(item)
+      }
+      if(index === productList.length-1){
+        setLikeList([...list])
+      }
+    });
   }
+  
   // 로그인 조건 함수 (로그인버튼 텍스트와, 로그인상태값 업데이트)
-  const loginCheckFunc=(state)=>{ 
-    if(state==="login"){
+  const loginCheckFunc=(login)=>{ 
+    if(login.state==="login"){
       setAuthenticate(true);
       setBtnText('로그아웃');
-    }else if("logout"){
+      if(login.path){
+        navigate(login.path);
+      }
+    }else if(login.state==="logout"){
       setAuthenticate(false);
       setBtnText('로그인');
     }
@@ -59,25 +69,7 @@ function App() {
     let data = await response.json();
     setProductList(data);
   }
-  const makeList = async() => {
-    let url = `http://localhost:3004/products`;
-    let response = await fetch(url);
-    let data = await response.json();
-    let pants=[];
-    let top =[];
-    data.map((item, index)=>{
-      if(item.type==="top"){
-        top.push(item);
-      }else if(item.type==="pants"){
-        pants.push(item)
-      }
-      if(index === data.length-1){
-        setTopList([...top]);
-        setPantsList([...pants]);
-      }
-    })
-  }
-  
+
   // 장바구니 목록 업데이트 함수
   const saveProduct = (item, name) => {
     // 다차배열을 사용해서 item이 아닌 list에 고유의 key값을 넣어준다.
@@ -95,7 +87,7 @@ function App() {
       if(name==="추가"){
         popupFunc(name);
       }
-      return [...save]})
+    return [...save]})
   }
   
   // 장바구니 목록 삭제
@@ -105,85 +97,101 @@ function App() {
         savePdt.splice(index,1);
         setSavePdt(savePdt.length>0?[...savePdt]:null);
       }
-    })
+    });
   }
   
   // 팝업 상태 업데이트함수
-  const popupFunc=(name)=>{
-    if (name==="추가"){
-      // 팝업 띄우기
-      setMessageTxt("장바구니에 상품이 추가되었습니다.");
-      setPopupState(true);
-
-    } else if (name === "계속 쇼핑하기"){
-      // 팝업 닫기
-      setMessageTxt("");
-      setPopupState(false);
-    } else if (name === "장바구니로"){
-      navigate('/list');
-      // 팝업 닫기
-      setMessageTxt("");
-      setPopupState(false);
-    }
+  const popupFunc=(popup)=>{
+    setMessageTxt(popup.description);
+    setPopupState(popup.state);
   } 
   
   // 상품 받아오기 : 페이지 처음 렌더링시 한번만 실행
   useEffect(() => {
     getProducts();
-    makeList();
-    
   }, []);
   
-  // 검색
+  // 검색 : 모든 상품은 productList로부터 관리어야 한다. 
+  // 상품데이터를 나눠서 관리하면 검색마다 나오는 상품들이 같은 상품인데 고유의 상품인 것처럼 별도로 관리되어버리기 때문에... 좋아요버튼이나, 상품 추가부분에서 이슈가 생긴다. 
   const searchFunc=(ob)=>{
-    if (ob.keywordTxt!==''){
     let list=[];
-      if (ob.pathTxt ==="/top"){
-      topList.map((item, index)=>{
-        if (item.title.indexOf(ob.keywordTxt)!==-1){
-          list.push(item);
-        }
-        if(index===topList.length-1){
-          if(list.length===0){
-            setSearchList("검색결과가 없습니다.");
-          }else{
-            setSearchList([...list]);
+    if (ob.pathTxt ==="/top"){
+      if(ob.keywordTxt===null){
+        productList.map((item,index)=>{
+          if(item.type==="top"){
+            list.push(item);
           }
-          setUpdateList(true);
-        }   
-      })
-      } else if (ob.pathTxt ==="/pants"){
-      pantsList.map((item, index)=>{
-        if (item.title.indexOf(ob.keywordTxt)!==-1){
-          list.push(item);
-        }
-        if(index===pantsList.length-1){
-          if(list.length===0){
-            setSearchList("검색결과가 없습니다.");
-          }else{
-            setSearchList([...list]);
+          if(index===productList.length-1){
+            if(list.length===0){
+              setSearchList("검색결과가 없습니다.");
+            }else{
+              setSearchList([...list]);
+            }
           }
-          setUpdateList(true);
-        }   
-      })
-    } else if (ob.pathTxt ==="/"){
-      productList.map((item, index)=>{
-        if (item.title.indexOf(ob.keywordTxt)!==-1){
-          list.push(item);
-        }
-        if(index===productList.length-1){
-          if(list.length===0){
-            setSearchList("검색결과가 없습니다.");
-          }else{
-            setSearchList([...list]);
+        });
+      }else if(ob.keywordTxt!==null){
+        productList.map((item,index)=>{
+          if(item.type==="top" && item.title.indexOf(ob.keywordTxt)!==-1){
+            list.push(item);
           }
-          setUpdateList(true);
-        }   
-      })
-    }
+          if(index===productList.length-1){
+            if(list.length===0){
+              setSearchList("검색결과가 없습니다.");
+            }else{
+              setSearchList([...list]);
+            }
+          }
+        });
+      }
+    }else if (ob.pathTxt ==="/pants"){
+      if(ob.keywordTxt===null){
+        productList.map((item,index)=>{
+          if(item.type==="pants"){
+            list.push(item);
+          }
+          if(index===productList.length-1){
+            if(list.length===0){
+              setSearchList("검색결과가 없습니다.");
+            }else{
+              setSearchList([...list]);
+            }
+          }
+        });
+      }else if(ob.keywordTxt!==null){
+        productList.map((item,index)=>{
+          if(item.type==="pants" && item.title.indexOf(ob.keywordTxt)!==-1){
+            list.push(item);
+          }
+          if(index===productList.length-1){
+            if(list.length===0){
+              setSearchList("검색결과가 없습니다.");
+            }else{
+              setSearchList([...list]);
+            }
+          }
+        });
+      }
+    }else if(ob.pathTxt==="/"){
+      if(ob.keywordTxt===null){
+        setSearchList([...productList]);
+      }else if(ob.keywordTxt!==null){
+        productList.map((item,index)=>{
+          if(item.title.indexOf(ob.keywordTxt)!==-1){
+            list.push(item);
+          }
+          if(index===productList.length-1){
+            if(list.length===0){
+              setSearchList("검색결과가 없습니다.");
+            }else{
+              setSearchList([...list]);
+            }
+          }
+        });
+      }
+    }else if(ob.pathTxt!=="/"&&ob.pathTxt!=="/pants"&&ob.pathTxt!=="/top"){
+      setSearchList([]);
     }
   }
-  
   // 로그인 업데이트 시 
   useEffect(()=>{
     if(authenticate===true){
@@ -200,18 +208,19 @@ function App() {
       setAuthenticate(false);
     } else if (paths.pathname === `/list`){
       setClassName("page-list");
-      setUpdateList(false);
-    } else if (paths.pathname === "/" || paths.pathname === "/pants" || paths.pathname === "/top") {
-      setUpdateList(false);
+    } else if ( 
+      paths.pathname === "/" || 
+      paths.pathname === "/pants"|| 
+      paths.pathname === "/top"
+    ) {
       setClassName("page-product");
+      // 상품 재랜더링
+      searchFunc({keywordTxt:null, pathTxt:paths.pathname});
     }else if(paths.pathname === "/info"){
       setClassName("page-myinfo");
-      setUpdateList(false);
     } else {
       setClassName("page-detail");
-      setUpdateList(false);
     }
-    
   }, [paths.pathname]);
 
   return (
@@ -227,7 +236,7 @@ function App() {
           path="/"
           element={
             <Main 
-              productList={updateList === true ? searchList : productList}
+              productList={searchList.length!==0?searchList : productList}
               saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
@@ -238,7 +247,7 @@ function App() {
           path="/pants"
           element={
             <Main 
-              productList={updateList === true ? searchList : pantsList}
+              productList={searchList.length!==0?searchList : productList}
               saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
@@ -249,7 +258,7 @@ function App() {
           path="/top"
           element={
             <Main 
-              productList={updateList === true ? searchList : topList}
+              productList={searchList.length!==0?searchList : productList}
               saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
@@ -298,6 +307,7 @@ function App() {
               popupState={popupState} 
               messageTxt={messageTxt} 
               popupFunc={popupFunc}
+              updateLikeData={updateLikeData}
               productList={likeList}
               path="info"
             /> 
@@ -311,7 +321,6 @@ function App() {
               popupState={popupState} 
               messageTxt={messageTxt} 
               popupFunc={popupFunc}
-              productList={likeList}
               path="qna"
             /> 
           }
