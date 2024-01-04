@@ -6,12 +6,13 @@ import { Img } from '../components/img';
 import { Icon } from '../components/icon';
 import {ListField} from '../components/listField'
 import { Modal } from '../components/Modal';
-export default function MyListPage({productList, popupFunc, popupState, messageTxt,updateLikeData}) {
+export default function MyListPage({ productList, popupFunc, popupState, messageTxt, updateLikeData, addressData }) {
   const [title, setTitle]=useState("");
   return (
     <div className='wrap'>
       {popupState===true? 
         <Modal 
+          addressData={addressData}
           type={{cate:"field", messageTxt, title:title}}
           popupInfo={[
               {

@@ -94,7 +94,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                 <Text sort="p" description="수량을 선택해주세요." />
                 <Button 
                   name="추가"
-                  style={`btn btn_add`} 
+                  style={`btn btn_add btn_full`} 
                   btnType="button" 
                   onClick={()=>{
                    if( selectSize!==null){
@@ -112,7 +112,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                 <Button 
                   itemInfo={{number, selectSize}}
                   name="바로구매하기"
-                  style={`btn`} 
+                style={`btn btn_full`} 
                   btnType="button"
                 />
                                  

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login({loginCheckFunc}) {
   const navigate=useNavigate();
+  const [loginCount, setLoginCount]=useState(0);
   // input update
   const [inputOb, setInputOb]=useState(
     [
@@ -32,8 +33,15 @@ export default function Login({loginCheckFunc}) {
         stateIcon: "hide"
       }
     ]);
-
-  // 로그인 상태 업데이트 함수
+  const matchUserData=()=>{
+    // 존재하는 아이디+비밀번호 일치 -> 유저데이터를 가져오고 로그인상태로 전환
+    loginCheckFunc({ state: "login", path: "/" });
+    // 존재하는 아이디 + 비밀번호 불일치 -> 경고문구 셋팅 and 로그인 실패횟수 카운트+1
+    // ...
+    // 존재하지 않는 아이디 -> 회원가입 유도 팝업 띄우기
+    //...
+  }
+  // 에러텍스트 상태 함수
   const [txtState, setTxtState]= useState('');
   
   // input 업데이트
@@ -61,7 +69,11 @@ export default function Login({loginCheckFunc}) {
     if(inputOb[0].val!==null && inputOb[1].val!==null){
       if(inputOb[0].val==='' || inputOb[1].val==='' ){
         setTxtState(false);
-      }else if(inputOb[0].val!=='' || inputOb[1].val!==''){
+      } else if (
+        inputOb[0].val !== '' && 
+        inputOb[1].val !== '' && 
+        inputOb[1].val.length > 7 && 
+        inputOb[0].val.length > 3){
         setTxtState(true);
       }
     }
@@ -93,15 +105,27 @@ export default function Login({loginCheckFunc}) {
           style="btn btn_full" 
           name="로그인" 
           onClick={()=>{
+            // txtState는 기본적으로 인풋에 value가 있는지를 체크
             if (txtState === true){
-              loginCheckFunc({state:"login", path:"/"});
-            }else {
-              loginCheckFunc({state:"logout"});
+              matchUserData({})
+
+              
+              
             }
            }
           }
           disabled={txtState===true?false:"disabled"}
         />
+        <Button 
+          type="button" 
+          style="btn btn_full" 
+          name="회원가입" 
+          onClick={()=>{
+            navigate('/signup');
+           }
+          }
+        />
+        {}
       </div>
      </div>
     </div>

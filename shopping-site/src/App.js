@@ -1,12 +1,14 @@
 import logo from './logo.svg';
-import './App.css';
+import './css/style.scss'
 import {useEffect, useState} from "react";
 import {Routes, Route, useLocation, useNavigate} from "react-router-dom";
+import AddressData from "react-daum-postcode";
 import Main from './pages/main';
 import Login from './pages/login';
 import Navbar from './components/Navbar';
 import List from './pages/list';
 import PrivatePage from './pages/PrivatePage.js';
+import SignUp from './pages/signup';
 
 function App() {
   // 현재페이지체크
@@ -30,7 +32,13 @@ function App() {
   const [searchList, setSearchList]=useState([]);
   //관심 상품목록
   const [likeList, setLikeList] = useState([]);
-  
+  const [addressData, setAddressData] = useState();
+
+  // 현재경로(/top,/pants,/)로 재이동시 검색결과리셋을 위한 state
+  const [move, setMove]=useState(0);
+  const updateMoveFunc=()=>{
+    setMove(move+1);
+  }
   const updateLikeData= (icon)=>{
     let list=[];
     productList.map((item, index)=>{
@@ -61,7 +69,16 @@ function App() {
       setBtnText('로그인');
     }
   }
-  
+  //회원가입 정보 등록함수
+  const userDataFunc=()=>{
+
+  }
+  // 주소 받아오기
+  const getAddressDatas=async()=>{
+    let url = `http://localhost:3004/products`;
+  }
+
+
   // 상품리스트 받아오기
   const getProducts = async () => {
     let url = `http://localhost:3004/products`;
@@ -111,25 +128,23 @@ function App() {
     getProducts();
   }, []);
   
-  // 검색 : 모든 상품은 productList로부터 관리어야 한다. 
-  // 상품데이터를 나눠서 관리하면 검색마다 나오는 상품들이 같은 상품인데 고유의 상품인 것처럼 별도로 관리되어버리기 때문에... 좋아요버튼이나, 상품 추가부분에서 이슈가 생긴다. 
+  // 검색 : 모든 상품은 productList로부터 관리되어야 한다. 
+  // 상품데이터를 나눠서 관리하면 검색마다 나오는 상품들이 같은 상품인데 고유의 상품인 것처럼 별도로 관리되어버리기 때문에... 
+  // 좋아요버튼이나, 상품 추가부분에서 이슈가 생긴다. 
   const searchFunc=(ob)=>{
     let list=[];
     if (ob.pathTxt ==="/top"){
-      if(ob.keywordTxt===null){
+      if (ob.keywordTxt === null || searchList === "검색결과가 없습니다."){
+        console.log(productList)
         productList.map((item,index)=>{
           if(item.type==="top"){
             list.push(item);
           }
           if(index===productList.length-1){
-            if(list.length===0){
-              setSearchList("검색결과가 없습니다.");
-            }else{
-              setSearchList([...list]);
-            }
+            setSearchList([...list]);
           }
         });
-      }else if(ob.keywordTxt!==null){
+      } else if (ob.keywordTxt !== null){
         productList.map((item,index)=>{
           if(item.type==="top" && item.title.indexOf(ob.keywordTxt)!==-1){
             list.push(item);
@@ -172,7 +187,7 @@ function App() {
         });
       }
     }else if(ob.pathTxt==="/"){
-      if(ob.keywordTxt===null){
+      if (ob.keywordTxt === null){
         setSearchList([...productList]);
       }else if(ob.keywordTxt!==null){
         productList.map((item,index)=>{
@@ -218,10 +233,13 @@ function App() {
       searchFunc({keywordTxt:null, pathTxt:paths.pathname});
     }else if(paths.pathname === "/info"){
       setClassName("page-myinfo");
-    } else {
+    }else if (paths.pathname === "/signup") {
+      setClassName("page-signup");
+    }
+     else {
       setClassName("page-detail");
     }
-  }, [paths.pathname]);
+  }, [paths.pathname, move]);
 
   return (
     <div className={urlPath}>
@@ -230,6 +248,7 @@ function App() {
         loginCheckFunc={loginCheckFunc}
         searchFunc={searchFunc}
         searchUI={paths.pathname}
+        updateMoveFunc={updateMoveFunc}
       ></Navbar>
       <Routes>
         <Route 
@@ -286,6 +305,12 @@ function App() {
           } 
         />
         <Route 
+          path="/signup" 
+          element={ 
+            <SignUp userDataFunc={userDataFunc}/> 
+          } 
+        />
+        <Route 
           path={`/product/:id`} 
           element={
             <PrivatePage 
@@ -309,6 +334,7 @@ function App() {
               popupFunc={popupFunc}
               updateLikeData={updateLikeData}
               productList={likeList}
+              addressData={addressData}
               path="info"
             /> 
           }
