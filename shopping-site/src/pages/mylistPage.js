@@ -77,9 +77,9 @@ export default function MyListPage({ productList, popupFunc, popupState, message
             </div>
           </section>
           <section className='like_area'>
-            <Text sort="h2" description={`찜목록 ${productList.length}${productList.length===0?"":"개"}`}/>
+            <Text sort="h2" description={`찜목록 ${productList? productList.length+ "개" : 0}`}/>
             {
-              productList.length === 0 ? 
+              productList===null? 
               <>
                 <Text textType="guide" description={`관심상품이 없습니다.`} sort="p"/>
                 <Text textType="guide" description={`상품목록에서 찜하기를 눌러주세요`} sort="p"/>

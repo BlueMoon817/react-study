@@ -1,6 +1,13 @@
 .input{
   &_box{
     position:relative;
+    outline: none;
+    
+    &.input_focus{
+      .input_field{
+        border-bottom-color: skyblue;
+      }
+    }
   }
 
   &_field{

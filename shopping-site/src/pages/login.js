@@ -12,27 +12,28 @@ export default function Login({loginCheckFunc}) {
   // input update
   const [inputOb, setInputOb]=useState(
     [
-      { key:0, 
+      { key:1, 
         sort:"id", 
         type:"text", 
         val: null, 
         focus: false, 
         guide:"아이디를 입력하세요.", 
-        style:" input_text",
+        style:"input_text",
         icon: "clear",
         stateIcon: "hide"
       }, 
-      { key:1, 
+      { key:2, 
         sort:"password", 
         type:"password", 
         val: null, 
         focus:false, 
-        style:"",
+        style:"input_text",
         guide:"비밀번호를 입력하세요", 
         icon: "hidden",
         stateIcon: "hide"
       }
     ]);
+
   const matchUserData=()=>{
     // 존재하는 아이디+비밀번호 일치 -> 유저데이터를 가져오고 로그인상태로 전환
     loginCheckFunc({ state: "login", path: "/" });
@@ -45,7 +46,7 @@ export default function Login({loginCheckFunc}) {
   const [txtState, setTxtState]= useState('');
   
   // input 업데이트
-  const onChangeInput=(item)=>{
+  const onChangeInput = (item)=>{
     item.input.val = item.val;
     if (item.input.icon === "clear"){
       if(item.val !== '' && item.val !==null) {

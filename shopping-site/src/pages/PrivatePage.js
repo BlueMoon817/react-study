@@ -13,6 +13,7 @@ export default function PrivatePage({ authenticate, popupFunc, popupState, messa
         popupState={popupState}
         messageTxt={messageTxt} 
         popupFunc={popupFunc}
+        productList={productList}
         updateLikeData={updateLikeData}
         addressData={addressData}
       />:

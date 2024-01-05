@@ -31,7 +31,7 @@ function App() {
   // 검색
   const [searchList, setSearchList]=useState([]);
   //관심 상품목록
-  const [likeList, setLikeList] = useState([]);
+  const [likeList, setLikeList] = useState(null);
   const [addressData, setAddressData] = useState();
 
   // 현재경로(/top,/pants,/)로 재이동시 검색결과리셋을 위한 state
@@ -51,7 +51,7 @@ function App() {
         list.push(item)
       }
       if(index === productList.length-1){
-        setLikeList(list)
+        list.length > 0 ? setLikeList(list) : setLikeList(null)
       }
     });
   }

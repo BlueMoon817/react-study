@@ -5,7 +5,7 @@ export const Icon = ({iconName, iconLabel, item, onClick, name}) => {
     <span 
       className={`ic ic_${iconName}`} 
       aria-label={iconLabel && iconLabel} 
-      onClick={() => { return item ? onClick(item, name) : onClick()}}
+      onClick={onClick}
     >{name && name}</span>
   )
 }

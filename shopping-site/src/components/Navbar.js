@@ -53,9 +53,15 @@ export default function Navbar({ stateLogin, loginCheckFunc, searchFunc, searchU
             <li className="list_items"><Link to="/" className="list_link" onClick={updateMoveFunc}>Home</Link></li>
             <li className="list_items"><Link to="/top" className="list_link" onClick={updateMoveFunc}>Top</Link></li>
             <li className="list_items"><Link to="/pants" className="list_link" onClick={updateMoveFunc}>Pants</Link></li>
-            <li className="list_items"><Link to="/list" className="list_link">장바구니</Link></li>
-            <li className="list_items"><Link to="/info" className="list_link">My Info</Link></li>
-            <li className="list_items"><Link to="/qna" className="list_link">고객센터</Link></li>
+            <li className="list_items"><Link to="/list" className="list_link" onClick={()=>{
+              setInputOb({ ...inputOb, "stateIcon": "hide", "val": "" })
+            }}>장바구니</Link></li>
+            <li className="list_items"><Link to="/info" className="list_link" onClick={()=>{
+              setInputOb({ ...inputOb, "stateIcon": "hide", "val": "" })
+            }}>My Info</Link></li>
+            <li className="list_items"><Link to="/qna" className="list_link" onClick={()=>{
+              setInputOb({ ...inputOb, "stateIcon": "hide", "val": "" })
+            }}>고객센터</Link></li>
             </ul>
         {
           searchUI==="/top" || searchUI ==="/pants" || searchUI==="/" ?
