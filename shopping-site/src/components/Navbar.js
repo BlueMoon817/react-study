@@ -15,15 +15,19 @@ export default function Navbar({ stateLogin, loginCheckFunc, searchFunc, searchU
     focus:false,
     guide:"검색어를 입력하세요",
     style:"input_search",
-    icon:"search"
+    icon:"clear",
+    stateIcon: "hide"
   });
   
-  const [keywordTxt,setKeywordText] = useState(null);
-  const getKeyword=(input)=>{
-    setKeywordText(input.val);
-    inputOb.val=input.val;
-    setInputOb(inputOb);
+  const onChangeInput = (item) => {
+    if (item.val !== '' && item.val !== null) {
+      setInputOb({...inputOb, "stateIcon":"show", "val":item.val});
+    } else {
+      setInputOb({ ...inputOb, "stateIcon": "hide", "val": item.val });
+    }
   }
+
+
   const params=useLocation();
   if (params.pathname !== "/login" && params.pathname !== "/signup"){
     return (
@@ -34,6 +38,7 @@ export default function Navbar({ stateLogin, loginCheckFunc, searchFunc, searchU
             to={stateLogin==="로그인"?"/login":"/"} onClick={()=>{
               if(stateLogin==="로그인"){
                 loginCheckFunc({state:"login"});
+                setInputOb({...inputOb, "val":"", "stateIcon":"hide"})
               }else if (stateLogin==="로그아웃"){
                 loginCheckFunc({state:"logout"});
               }
@@ -57,16 +62,15 @@ export default function Navbar({ stateLogin, loginCheckFunc, searchFunc, searchU
           <div className="search_box">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="ic_search"/>
             <Input 
-              num="0"
               item={inputOb}
-              onFunc={getKeyword}
+              onFunc={onChangeInput}
             />
             <Button 
               name="검색"
               btnType="button" 
               style="btn btn_search" 
               onClick={()=>{
-                searchFunc({keywordTxt, pathTxt:params.pathname})
+                searchFunc({ keywordTxt: inputOb.val, pathTxt:params.pathname})
               }} 
             />
           </div>:""
@@ -75,9 +79,9 @@ export default function Navbar({ stateLogin, loginCheckFunc, searchFunc, searchU
       </header>)  
   } else if (params.pathname === "/login"){
     return (
-        <header className="header">
-         <div className="logo_area"><h1><Link to="/login" className="logo"></Link></h1></div>
-        </header>
+      <header className="header">
+       <div className="logo_area"><h1><Link to="/login" className="logo"></Link></h1></div>
+      </header>
     )
   } else if (params.pathname === "/signup"){
     return(

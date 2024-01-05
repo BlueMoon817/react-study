@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Icon } from './icon';
 import { Text } from './Text';
 import { Button } from './Button';
 import { useNavigate } from 'react-router-dom';
 import { Input } from './input';
+
 export const ModalContentField = ({ type, popupFunc, popupInfo, addressData }) => {
   const navigate=useNavigate();
   const [checkData, setCheckData]=useState("");
@@ -44,7 +44,7 @@ export const ModalContentField = ({ type, popupFunc, popupInfo, addressData }) =
 
           <Input
             onFunc={saveData}
-          item={type.title==="주소"?inputOb[1]:inputOb[0]}
+            item={type.title==="주소"?inputOb[1]:inputOb[0]}
             />
             {
               type.title==="아이디"?          
@@ -84,7 +84,7 @@ export const ModalContentField = ({ type, popupFunc, popupInfo, addressData }) =
               }
           </div>
           {
-        type.title === "주소" && addressList===''?
+          type.title === "주소" && addressList===''?
           <div className="address_guide">
             <Text sort="p" description="ex) 서울시..." />
           </div>:(

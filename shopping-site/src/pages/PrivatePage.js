@@ -10,12 +10,9 @@ export default function PrivatePage({ authenticate, popupFunc, popupState, messa
     {
       authenticate && path==="info"? 
       <MyListPage 
-        authenticate={authenticate} 
-        popupState={popupState} 
+        popupState={popupState}
         messageTxt={messageTxt} 
         popupFunc={popupFunc}
-        productList={productList}
-        saveProduct={saveProduct}
         updateLikeData={updateLikeData}
         addressData={addressData}
       />:

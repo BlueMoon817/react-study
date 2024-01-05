@@ -1,8 +1,8 @@
 import React from "react";
-import { Icon } from './icon';
 import { Text } from './Text';
 import { Button } from './Button';
 import { useNavigate } from 'react-router-dom';
+
 export const ModalContentBasic = ({type, popupFunc, popupInfo}) => {
   const navigate=useNavigate();
   return(
@@ -18,7 +18,7 @@ export const ModalContentBasic = ({type, popupFunc, popupInfo}) => {
                 name={item.name}
                 onClick={
                   ()=>{
-                    popupFunc({state:item.on.state,  description:item.on.description})
+                    popupFunc({ state: item.on.state,  description: item.on.description})
                     if(item.on.path!==null){
                       navigate(item.on.path);
                     }

@@ -49,15 +49,15 @@ export default function Login({loginCheckFunc}) {
     item.input.val = item.val;
     if (item.input.icon === "clear"){
       if(item.val !== '' && item.val !==null) {
-        item.input.stateIcon="show"
+        item.input.stateIcon = "show"
       }else{
         item.input.stateIcon = "hide"
       }
     } else if(item.state==="view"){
-      item.input.stateIcon = "hide"
-      item.input.type="password"
+      item.input.stateIcon = "hide";
+      item.input.type = "password"
     } else if(item.state === "hidden"){
-      item.input.stateIcon = "show"
+      item.input.stateIcon = "show";
       item.input.type = "text"
     }
     setInputOb([...inputOb]);
@@ -108,9 +108,6 @@ export default function Login({loginCheckFunc}) {
             // txtState는 기본적으로 인풋에 value가 있는지를 체크
             if (txtState === true){
               matchUserData({})
-
-              
-              
             }
            }
           }

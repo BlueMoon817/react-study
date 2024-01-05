@@ -19,7 +19,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
   }
   return (
     <div className="wrap">
-      {popupState===true? 
+      {popupState===true &&
         <Modal 
           type={{cate:"basic", messageTxt}}
           popupInfo={[
@@ -36,7 +36,7 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
             ]
         }
         popupFunc={popupFunc} 
-        /> : ""
+        /> 
       }
       <div className='content'>
         <div className='inner'>
@@ -62,9 +62,9 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                     />))
                   }
                   </div>
-                { selectSize==null?
+                { 
+                  selectSize==null &&
                   <Text description="사이즈를 선택해주세요" sort="p"/>
-                  :""
                 }
                 </div>
                 <div className='count_area'>
@@ -106,8 +106,8 @@ export default function ProductDetail({productList, saveProduct, popupState,mess
                   disabled={selectSize?false:"disabled"}
                 />
                 {
-                  selectSize===null?                
-                  <Text sort="p" description="사이즈를 선택해주세요." />: ""
+                  selectSize===null&&           
+                  <Text sort="p" description="사이즈를 선택해주세요." />
                 }
                 <Button 
                   itemInfo={{number, selectSize}}

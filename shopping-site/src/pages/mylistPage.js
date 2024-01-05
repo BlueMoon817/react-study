@@ -3,14 +3,13 @@ import { Text } from '../components/Text';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { Img } from '../components/img';
-import { Icon } from '../components/icon';
 import {ListField} from '../components/listField'
 import { Modal } from '../components/Modal';
 export default function MyListPage({ productList, popupFunc, popupState, messageTxt, updateLikeData, addressData }) {
   const [title, setTitle]=useState("");
   return (
     <div className='wrap'>
-      {popupState===true? 
+      {popupState===true &&
         <Modal 
           addressData={addressData}
           type={{cate:"field", messageTxt, title:title}}
@@ -26,9 +25,9 @@ export default function MyListPage({ productList, popupFunc, popupState, message
                 on:{state:false, description:"", path:"/info"}
               }
             ]
-        }
-        popupFunc={popupFunc} 
-        /> : ""
+          }
+          popupFunc={popupFunc} 
+        /> 
       }
       <div className='content'>
         <div className='inner'>
@@ -78,7 +77,7 @@ export default function MyListPage({ productList, popupFunc, popupState, message
             </div>
           </section>
           <section className='like_area'>
-            <Text sort="h2" description="찜목록"/>
+            <Text sort="h2" description={`찜목록 ${productList.length}${productList.length===0?"":"개"}`}/>
             {
               productList.length === 0 ? 
               <>

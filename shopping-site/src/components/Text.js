@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export const Text = ({sort, textType, description}) => {
   if(sort === "p"){
     return (<p className={`text_desc${textType?` text_${textType}`:""}`}>{description}</p>);

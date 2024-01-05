@@ -3,9 +3,9 @@ import { Icon } from './icon';
 
 export const Img = ({imgName, description, path, item}) => {
   return(
-    <div className={`img_wrap ${imgName?imgName:""}`}>
+    <div className={`img_wrap ${imgName&&imgName}`}>
       <img src={path} alt={description}/>
-      {item&&item.new===true ? <Icon iconName="badge" text="New"/> : ""}
+      {item&&item.new && <Icon iconName="badge" text="New"/>}
     </div>
   );
 }

@@ -76,11 +76,13 @@
   }
 
   &_group{
+    margin-top: 30px;
+    display:flex;
+    justify-content:start;
     &.btn{
       &_half{
-        display:flex;
-        margin-top:40px;
         justify-content:space-between;
+        margin-top:40px;
 
         .btn{
           width:calc(50% - 6px);
@@ -89,8 +91,18 @@
           +.btn{
             margin-top:0;
           }
+
         }
       }
+    }
+
+    .btn{
+      &_option{
+        &:not(:nth-of-type(1)){
+          margin-left: 10px;
+        }
+      }
+
     }
   }
 

@@ -51,7 +51,7 @@ function App() {
         list.push(item)
       }
       if(index === productList.length-1){
-        setLikeList([...list])
+        setLikeList(list)
       }
     });
   }
@@ -132,81 +132,30 @@ function App() {
   // 상품데이터를 나눠서 관리하면 검색마다 나오는 상품들이 같은 상품인데 고유의 상품인 것처럼 별도로 관리되어버리기 때문에... 
   // 좋아요버튼이나, 상품 추가부분에서 이슈가 생긴다. 
   const searchFunc=(ob)=>{
-    let list=[];
-    if (ob.pathTxt ==="/top"){
-      if (ob.keywordTxt === null || searchList === "검색결과가 없습니다."){
-        console.log(productList)
-        productList.map((item,index)=>{
-          if(item.type==="top"){
-            list.push(item);
-          }
-          if(index===productList.length-1){
-            setSearchList([...list]);
-          }
-        });
-      } else if (ob.keywordTxt !== null){
-        productList.map((item,index)=>{
-          if(item.type==="top" && item.title.indexOf(ob.keywordTxt)!==-1){
-            list.push(item);
-          }
-          if(index===productList.length-1){
-            if(list.length===0){
-              setSearchList("검색결과가 없습니다.");
-            }else{
-              setSearchList([...list]);
-            }
-          }
-        });
-      }
-    }else if (ob.pathTxt ==="/pants"){
-      if(ob.keywordTxt===null){
-        productList.map((item,index)=>{
-          if(item.type==="pants"){
-            list.push(item);
-          }
-          if(index===productList.length-1){
-            if(list.length===0){
-              setSearchList("검색결과가 없습니다.");
-            }else{
-              setSearchList([...list]);
-            }
-          }
-        });
-      }else if(ob.keywordTxt!==null){
-        productList.map((item,index)=>{
-          if(item.type==="pants" && item.title.indexOf(ob.keywordTxt)!==-1){
-            list.push(item);
-          }
-          if(index===productList.length-1){
-            if(list.length===0){
-              setSearchList("검색결과가 없습니다.");
-            }else{
-              setSearchList([...list]);
-            }
-          }
-        });
-      }
-    }else if(ob.pathTxt==="/"){
-      if (ob.keywordTxt === null){
-        setSearchList([...productList]);
-      }else if(ob.keywordTxt!==null){
-        productList.map((item,index)=>{
-          if(item.title.indexOf(ob.keywordTxt)!==-1){
-            list.push(item);
-          }
-          if(index===productList.length-1){
-            if(list.length===0){
-              setSearchList("검색결과가 없습니다.");
-            }else{
-              setSearchList([...list]);
-            }
-          }
-        });
-      }
-    }else if(ob.pathTxt!=="/"&&ob.pathTxt!=="/pants"&&ob.pathTxt!=="/top"){
+    let pathStr;
+    ob.pathTxt.length > 1 ? pathStr=ob.pathTxt.substr(1, ob.pathTxt.length - 1) : pathStr = "/";
+
+    if (ob.keywordTxt === null && pathStr!=="/"){
+      // 카테고리로만 필터링
+      const newArr = productList.filter(item => item.type === pathStr);
+      setSearchList(newArr);
+    } else if (ob.keywordTxt !== null && pathStr !== "/") {
+      //카테고리 검색 && 키워드 검색
+      const newArr = productList.filter(item => item.type === pathStr && item.title.indexOf(ob.keywordTxt) !== -1);
+      setSearchList(newArr.length === 0 ? "검색결과가 없습니다." : newArr);
+    } else if (ob.keywordTxt === null && pathStr=== "/"){
+      // 모든 상품 노출
+      setSearchList(productList);
+    } else if (ob.keywordTxt !== null && pathStr === "/"){
+      // 전체 상품에서 키워드 검색
+      const newArr = productList.filter(item =>item.title.indexOf(ob.keywordTxt) !== -1);
+      setSearchList(newArr.length === 0 ? "검색결과가 없습니다." : newArr);
+    } else if (pathStr !== "/" && pathStr !=="pants" && pathStr!=="top"){
+      // 검색 가능한 페이지가 아니면 검색리스트 초기화
       setSearchList([]);
     }
   }
+
   // 로그인 업데이트 시 
   useEffect(()=>{
     if(authenticate===true){
@@ -256,7 +205,6 @@ function App() {
           element={
             <Main 
               productList={searchList.length!==0?searchList : productList}
-              saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
             />
@@ -267,7 +215,6 @@ function App() {
           element={
             <Main 
               productList={searchList.length!==0?searchList : productList}
-              saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
             />
@@ -278,7 +225,6 @@ function App() {
           element={
             <Main 
               productList={searchList.length!==0?searchList : productList}
-              saveProduct={saveProduct}
               updateLikeData={updateLikeData}
               authenticate={authenticate}
             />
@@ -291,7 +237,6 @@ function App() {
               list={savePdt} 
               saveProduct={saveProduct} 
               deleteFunc={deleteFunc} 
-              productList={productList} 
             />
           } 
         />

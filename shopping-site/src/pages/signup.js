@@ -147,13 +147,12 @@ export default function SignUp(props) {
           </div>
 
           {
-            txtState === false ?
+            txtState === false &&
               <Text
                 sort="p"
                 textType="error"
                 description="아이디와 비밀번호를 다시 입력해주세요"
               />
-              : ""
           }
 
         </div>
