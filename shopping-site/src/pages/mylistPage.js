@@ -8,29 +8,28 @@ import { Modal } from '../components/Modal';
 export default function MyListPage({ productList, popupFunc, popupState, messageTxt, updateLikeData, addressData }) {
   const [title, setTitle]=useState("");
   return (
-    <div className='wrap'>
-      {popupState===true &&
-        <Modal 
-          addressData={addressData}
-          type={{cate:"field", messageTxt, title:title}}
-          popupInfo={[
-              {
-                name:"취소", 
-                style:"btn btn_cancel",
-                on:{state:false, description:"", path:null, }
-                },
-              {
-                name:"수정완료",
-                style:"btn btn_complete",
-                on:{state:false, description:"", path:"/info"}
-              }
-            ]
-          }
-          popupFunc={popupFunc} 
-        /> 
-      }
-      <div className='content'>
-        <div className='inner'>
+
+      <div className='inner'>
+        {popupState===true &&
+          <Modal 
+            addressData={addressData}
+            type={{cate:"field", messageTxt, title:title}}
+            popupInfo={[
+                {
+                  name:"취소", 
+                  style:"btn btn_cancel",
+                  on:{state:false, description:"", path:null, }
+                  },
+                {
+                  name:"수정완료",
+                  style:"btn btn_complete",
+                  on:{state:false, description:"", path:"/info"}
+                }
+              ]
+            }
+            popupFunc={popupFunc} 
+          /> 
+        }          
         <Text sort="h1" description="My Info"/>
           <section className='edit_area'>
             <Text sort="h2" description="내 정보 수정"/>
@@ -119,8 +118,6 @@ export default function MyListPage({ productList, popupFunc, popupState, message
             </ul>
             }       
           </section>
-        </div>
-      </div>
     </div>
   );
 }

@@ -11,9 +11,7 @@ export const Modal = ({ type, popupFunc, popupInfo, addressData }) => {
           :(type.cate==="field" ?
             <ModalContentField type={type} popupFunc={popupFunc} popupInfo={popupInfo} addressData={addressData}/> :""
           )
-      
         }
-
       </div>
     )
   }

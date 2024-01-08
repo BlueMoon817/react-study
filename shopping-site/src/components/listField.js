@@ -11,11 +11,8 @@ export const ListField = ({onClick, src}) => {
       <div className='text_wrap'>
         <Text sort="strong" description={src.title} />
         { src.description&&<Text sort="span" description={src.description}/> }
-        
       </div>
-      <Icon iconName="arrow" onClick={()=>{
-        return false
-      }}/>
+      <Icon iconName="arrow"/>
     </div>
   );
 }

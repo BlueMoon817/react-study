@@ -1,14 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
 import { Text } from '../components/Text';
 import { Icon } from '../components/icon';
-import { useLocation, useNavigate } from "react-router-dom";
 export default function Main({ productList, saveProduct, updateLikeData,authenticate }){
   const navigate=useNavigate();
-  const paths=useLocation();
   return(
-    <div className="wrap">
-      <div className='content'>
         <div className='inner'>
           <div className="product_area">
             <ul className="product_list">
@@ -28,19 +25,19 @@ export default function Main({ productList, saveProduct, updateLikeData,authenti
                     onClick={()=>{
                       if (authenticate){
                         if(menu.like.state){
-                        return updateLikeData({
+                        updateLikeData({
                             item:menu,
                             id:menu.id,
                             state:false,
                             name:"heart"
                           })
-                        }else{
-                        return updateLikeData({
+                        }else if(!menu.like.state){
+                         updateLikeData({
                             item:menu,
                             id:menu.id,
                             state:true,
                             name:"heart_filled"
-                          })
+                          });
                         }
                       }else {
                         navigate('/login');
@@ -52,7 +49,5 @@ export default function Main({ productList, saveProduct, updateLikeData,authenti
             </ul>
           </div>
         </div>
-      </div>
-    </div>
   );
 }

@@ -8,14 +8,15 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login({loginCheckFunc}) {
   const navigate=useNavigate();
-  const [loginCount, setLoginCount]=useState(0);
+  const [inputVal1, setInputVal1] = useState(null);
+  const [inputVal2, setInputVal2] = useState(null);
   // input update
   const [inputOb, setInputOb]=useState(
     [
       { key:1, 
         sort:"id", 
         type:"text", 
-        val: null, 
+        val: {inputVal1}, 
         focus: false, 
         guide:"아이디를 입력하세요.", 
         style:"input_text",
@@ -25,7 +26,7 @@ export default function Login({loginCheckFunc}) {
       { key:2, 
         sort:"password", 
         type:"password", 
-        val: null, 
+        val: {inputVal2}, 
         focus:false, 
         style:"input_text",
         guide:"비밀번호를 입력하세요", 
@@ -47,85 +48,98 @@ export default function Login({loginCheckFunc}) {
   
   // input 업데이트
   const onChangeInput = (item)=>{
-    item.input.val = item.val;
-    if (item.input.icon === "clear"){
-      if(item.val !== '' && item.val !==null) {
-        item.input.stateIcon = "show"
+    const updateInput = inputOb.map(ob => {
+      if(ob.key === item.input.key){
+        if(item.input.icon === "clear"){
+          setInputVal1(item.val);
+          if(item.val !== '' && item.val !==null){
+            return {...ob, stateIcon:"show"}
+          }else {
+            return {...ob, stateIcon:"hide"}
+          }
+        }else if(item.input.icon==="hidden"){
+          setInputVal2(item.val);
+          if(item.state==="view"){
+            return {...ob, stateIcon:"hide", type:"password"}
+          }else if(item.state==="hidden"){
+            return {...ob, stateIcon:"show", type:"text"}
+          }
+        }
       }else{
-        item.input.stateIcon = "hide"
+        return ob;
       }
-    } else if(item.state==="view"){
-      item.input.stateIcon = "hide";
-      item.input.type = "password"
-    } else if(item.state === "hidden"){
-      item.input.stateIcon = "show";
-      item.input.type = "text"
-    }
-    setInputOb([...inputOb]);
+    })
+    setInputOb(updateInput);
   }
 
   // input 변화 감지
   useEffect(()=>{
-    // 에러 메시지
-    if(inputOb[0].val!==null && inputOb[1].val!==null){
-      if(inputOb[0].val==='' || inputOb[1].val==='' ){
-        setTxtState(false);
-      } else if (
-        inputOb[0].val !== '' && 
-        inputOb[1].val !== '' && 
-        inputOb[1].val.length > 7 && 
-        inputOb[0].val.length > 3){
+    
+    if(inputVal1===null || inputVal2===null){
+      return;
+    }else {
+      setTxtState(false);
+      if (
+        inputVal1 !== '' && 
+        inputVal2 !== '' && 
+        inputVal2.length > 7 && 
+        inputVal1.length > 3){
         setTxtState(true);
       }
     }
   }, [inputOb]);
   
   return (
-    <div className="wrap">
-     <div className='content'>
-      <div className="inner">
-        <Input 
-          item={inputOb[0]} 
-          onFunc={onChangeInput}
-        />
-        <Input
-          item={inputOb[1]} 
-          onFunc={onChangeInput}
-        />
-        {
-          txtState===false? 
-          <Text 
-            sort="p"
-            textType="error" 
-            description="아이디와 비밀번호를 다시 입력해주세요"
-          /> 
-          : ""
+    <div className="inner">
+      <Input 
+        item={inputOb[0]} 
+        val={inputVal1}
+        onChange={(e)=>{
+          setInputVal1(e.target.value);
+          onChangeInput({input:e, val:e.target.value})
+        }}
+        onFunc={onChangeInput}
+      />
+      <Input
+        item={inputOb[1]}
+        val={inputVal2}
+        onChange={(e)=>{
+          setInputVal2(e.target.value);
+          onChangeInput({input:e, val:e.target.value})
+        }}
+        onFunc={onChangeInput}
+      />
+      {
+        txtState===false? 
+        <Text 
+          sort="p"
+          textType="error" 
+          description="아이디와 비밀번호를 다시 입력해주세요"
+        /> 
+        : ""
+      }
+      <Button 
+        type="button" 
+        style="btn btn_full" 
+        name="로그인" 
+        onClick={()=>{
+          // txtState는 기본적으로 인풋에 value가 있는지를 체크
+          if (txtState === true){
+            matchUserData({})
+          }
+         }
         }
-        <Button 
-          type="button" 
-          style="btn btn_full" 
-          name="로그인" 
-          onClick={()=>{
-            // txtState는 기본적으로 인풋에 value가 있는지를 체크
-            if (txtState === true){
-              matchUserData({})
-            }
-           }
-          }
-          disabled={txtState===true?false:"disabled"}
-        />
-        <Button 
-          type="button" 
-          style="btn btn_full" 
-          name="회원가입" 
-          onClick={()=>{
-            navigate('/signup');
-           }
-          }
-        />
-        {}
-      </div>
-     </div>
+        disabled={txtState===true?false:"disabled"}
+      />
+      <Button 
+        type="button" 
+        style="btn btn_full" 
+        name="회원가입" 
+        onClick={()=>{
+          navigate('/signup');
+         }
+        }
+      />
     </div>
   );
 }
