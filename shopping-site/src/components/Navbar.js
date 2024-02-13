@@ -42,7 +42,7 @@ export default function Navbar({ stateLogin, loginCheckFunc, searchFunc, searchU
               }else if (stateLogin==="로그아웃"){
                 loginCheckFunc({state:"logout"});
               }
-            }} 
+            }}
             className='text_login'>
               <FontAwesomeIcon icon={faUser} className='ic_user'/>{stateLogin}
             </Link>
