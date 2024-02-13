@@ -6,11 +6,9 @@ import { Img } from '../components/img';
 export default function CustomerPage({productList}) {
 
   return (
-    <div className='wrap'>
-      <div className='content'>
+    <div className='inner'>
         <h1>고객센터</h1>
 
-      </div>
     </div>
   );
 }

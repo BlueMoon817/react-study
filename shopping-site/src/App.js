@@ -40,22 +40,29 @@ function App() {
     setMove(move+1);
   }
   const updateLikeData= (icon)=>{
-    let list=[];
-    productList.map((item, index)=>{
-      if(item.id===icon.id){
-        item.like.name=icon.name;
-        item.like.state=icon.state;
-        setProductList([...productList]);
-      }
-      if(item.like.state){
-        list.push(item)
-      }
-      if(index === productList.length-1){
-        list.length > 0 ? setLikeList(list) : setLikeList(null)
-      }
+    setProductList(prevList=>{
+      const updatedList = prevList.map((item)=>{
+        if(item.id === icon.item.id){
+          return {
+            ...item,
+            like:{
+              name:icon.name,
+              state: icon.state
+            }
+          }
+        }else{
+          return item;
+        }
     });
-  }
-  
+    if(!icon.state){
+      const updateLikeList=likeList.filter(i=> i.id!==icon.id);
+      setLikeList(updateLikeList.length>0?updateLikeList:null)
+    }else {
+      setLikeList(likeList!==null?[...likeList, icon.item]:[icon.item])
+    }
+    return updatedList;
+  });
+}
   // 로그인 조건 함수 (로그인버튼 텍스트와, 로그인상태값 업데이트)
   const loginCheckFunc=(login)=>{ 
     if(login.state==="login"){
@@ -109,12 +116,7 @@ function App() {
   
   // 장바구니 목록 삭제
   const deleteFunc=(item)=>{
-    savePdt.map((saveItem,index)=>{
-      if(saveItem.key===item.key){
-        savePdt.splice(index,1);
-        setSavePdt(savePdt.length>0?[...savePdt]:null);
-      }
-    });
+    setSavePdt(savePdt.filter(i=> i.key!==item.key))
   }
   
   // 팝업 상태 업데이트함수
@@ -188,10 +190,10 @@ function App() {
      else {
       setClassName("page-detail");
     }
-  }, [paths.pathname, move]);
+  }, [paths.pathname, move, productList]);
 
   return (
-    <div className={urlPath}>
+    <div className={`wrap ${urlPath}`}>
       <Navbar  
         stateLogin={btnText}
         loginCheckFunc={loginCheckFunc}
@@ -199,6 +201,7 @@ function App() {
         searchUI={paths.pathname}
         updateMoveFunc={updateMoveFunc}
       ></Navbar>
+      <div className='content'>
       <Routes>
         <Route 
           path="/"
@@ -297,6 +300,7 @@ function App() {
           }
         />
       </Routes> 
+      </div>
     </div>
   );
 }

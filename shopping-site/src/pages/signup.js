@@ -92,71 +92,65 @@ export default function SignUp(props) {
   }, [inputOb]);
 
   return (
-    <div className="wrap">
-      <div className='content'>
-        <div className="inner">
-          <Text sort="h1" description="회원가입"/>
-          <div className='text_field_area'>
-            <ul className='field_list'>
-              <li className='list_item'>
-                <Input
-                  item={inputOb[0]}
-                  onFunc={onChangeInput}
-                />
-                <Button 
-                  btnType="button"
-                  name="확인"
-                  style="btn btn_small"
-                  disabled="disabled"
-                />
-              </li>
-              <li className='list_item'>
-                <Input
-                  item={inputOb[1]}
-                  onFunc={onChangeInput}
-                />
-              </li>
-              <li className='list_item'>
-                <Input
-                  item={inputOb[2]}
-                  onFunc={onChangeInput}
-                />
-                <Button
-                  btnType="button"
-                  name="확인"
-                  style="btn btn_small"
-                  disabled="disabled"
-                />
-              </li>
-              <li className='list_item'>
-                <Input
-                  item={inputOb[3]}
-                  onFunc={onChangeInput}
-                />
-                <Button
-                  btnType="button"
-                  name="찾기"
-                  style="btn btn_small"
-                  disabled="disabled"
-                />
-              </li>
-            </ul>
-            <div className='guide_box'>
-              <Text sort="p" description="ex) 서울시"/>
-            </div>
-          </div>
-
-          {
-            txtState === false &&
-              <Text
-                sort="p"
-                textType="error"
-                description="아이디와 비밀번호를 다시 입력해주세요"
-              />
-          }
-
+    <div className="inner">
+      <Text sort="h1" description="회원가입"/>
+      <div className='text_field_area'>
+        <ul className='field_list'>
+          <li className='list_item'>
+            <Input
+              item={inputOb[0]}
+              onFunc={onChangeInput}
+            />
+            <Button 
+              btnType="button"
+              name="확인"
+              style="btn btn_small"
+              disabled="disabled"
+            />
+          </li>
+          <li className='list_item'>
+            <Input
+              item={inputOb[1]}
+              onFunc={onChangeInput}
+            />
+          </li>
+          <li className='list_item'>
+            <Input
+              item={inputOb[2]}
+              onFunc={onChangeInput}
+            />
+            <Button
+              btnType="button"
+              name="확인"
+              style="btn btn_small"
+              disabled="disabled"
+            />
+          </li>
+          <li className='list_item'>
+            <Input
+              item={inputOb[3]}
+              onFunc={onChangeInput}
+            />
+            <Button
+              btnType="button"
+              name="찾기"
+              style="btn btn_small"
+              disabled="disabled"
+            />
+          </li>
+        </ul>
+        <div className='guide_box'>
+          <Text sort="p" description="ex) 서울시"/>
         </div>
       </div>
+      {
+        txtState === false &&
+          <Text
+            sort="p"
+            textType="error"
+            description="아이디와 비밀번호를 다시 입력해주세요"
+          />
+      }
     </div>
   );
 }

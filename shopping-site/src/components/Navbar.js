@@ -27,7 +27,6 @@ export default function Navbar({ stateLogin, loginCheckFunc, searchFunc, searchU
     }
   }
 
-
   const params=useLocation();
   if (params.pathname !== "/login" && params.pathname !== "/signup"){
     return (
@@ -69,6 +68,10 @@ export default function Navbar({ stateLogin, loginCheckFunc, searchFunc, searchU
             <FontAwesomeIcon icon={faMagnifyingGlass} className="ic_search"/>
             <Input 
               item={inputOb}
+              val={inputOb.val}
+              onChange={(e)=>{
+                onChangeInput({input:e, val:e.target.value})
+              }}
               onFunc={onChangeInput}
             />
             <Button 
