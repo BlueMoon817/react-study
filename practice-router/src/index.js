@@ -1,14 +1,19 @@
 import React from 'react';
+import {commonFunc, Tab} from './js/test.js';
+import './App.css';
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter} from "react-router-dom"
-import './index.css';
-import App from './App';
+import AppTest from './AppTest.js';
 import reportWebVitals from './reportWebVitals';
-
+import $ from 'jquery';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <App />
+    <AppTest ></AppTest>
+    {window.addEventListener('load', function(){
+      commonFunc(window, window.jQuery);
+      Tab(window, window.jQuery);
+    })}
   </BrowserRouter>
 );
 
