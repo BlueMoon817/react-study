@@ -6,6 +6,6 @@ pages:
   - mv .public public
   artifacts:
     paths:
-    - weather-app/build
+    - https://github.com/BlueMoon817/react-study/weather-app/build
   only:
   - main
