@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './css/style.scss'
 import {useEffect, useState} from "react";
 import {Routes, Route, useLocation, useNavigate} from "react-router-dom";
@@ -82,16 +81,16 @@ function App() {
   }
   // 주소 받아오기
   const getAddressDatas=async()=>{
-    let url = `http://localhost:3004/products`;
+    let url = `https://bluemoon817.github.io/fileInfo/json/db.json`;
   }
 
 
   // 상품리스트 받아오기
   const getProducts = async () => {
-    let url = `http://localhost:3004/products`;
+    let url = `https://bluemoon817.github.io/fileInfo/json/db.json`;
     let response = await fetch(url);
     let data = await response.json();
-    setProductList(data);
+    setProductList(data.products);
   }
 
   // 장바구니 목록 업데이트 함수
