@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -b main -r https://github.com/BlueMoon817/react-study/weather-app/build"
+    "deploy": "gh-pages -d build -b main"
   },
   "eslintConfig": {
     "extends": [
