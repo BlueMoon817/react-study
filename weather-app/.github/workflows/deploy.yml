@@ -1,11 +1,11 @@
 pages:
   stage: deploy
   script:
-  - mkdir .public
-  - cp -r * .public
-  - mv .public public
+  - mkdir .build
+  - cp -r * .build
+  - mv .build build
   artifacts:
     paths:
-    - https://github.com/BlueMoon817/react-study/weather-app/build
+    - build
   only:
   - main
