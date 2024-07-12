@@ -30,7 +30,7 @@ jobs:
 
     - name: Deploy to GitHub Pages
       run: |
-        cd ${{ matrix.project }} && git checkout main || git checkout -b main
+        cd ${{ matrix.project }} && git checkout -f main
         cp -r build/* .
         git add .
         git commit -m "Deploy ${matrix.project}"
