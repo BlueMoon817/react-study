@@ -17,7 +17,11 @@ html, body{
   flex-direction: column;
   text-align:center;
 }
-.img_background{
+.content_box {
+  max-width: 500px;
+width: 100%;
+}
+.img_background {
   position:absolute;
   left:0;top:50%;
   transform: translateY(-50%);
@@ -53,10 +57,20 @@ html, body{
   background: url('./img/Fog.jpg') no-repeat;
   background-size: cover;
 }
-.ic_spinner{position:absolute;transform: translate(-50%,-50%);}
-h1{-webkit-text-stroke: 2px #000;text-stroke: 2px #000;}
-.current_city{-webkit-text-stroke: 1px #555;text-stroke: 1px #555;}
-h1, .current_city{
+.ic_spinner {
+  position:absolute;
+  transform: translate(-50%,-50%);
+}
+h1{
+  -webkit-text-stroke: 2px #000;
+  text-stroke: 2px #000;
+}
+.current_city{
+  -webkit-text-stroke: 1px #555;
+  text-stroke: 1px #555;
+}
+h1, 
+.current_city{
   font-size:40px;
   color:#eee;
   font-weight:bold;
@@ -74,8 +88,6 @@ h1, .current_city{
   height:141px;
   box-sizing: border-box;
 }
-
-
 .text_wrap >span {
   margin-top: 20px;
   display: block;
@@ -89,7 +101,6 @@ h1, .current_city{
   font-size:14px;
   color:#555;
   font-weight:700;
-  
 }
 .text_temp{
   font-size:15px;
