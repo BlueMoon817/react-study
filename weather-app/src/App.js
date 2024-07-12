@@ -76,7 +76,7 @@ function App() {
     } else {
       setCity(city);
     }
-  }
+  }     
   
   return (
     <div className="wrap">
