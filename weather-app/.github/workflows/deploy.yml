@@ -1,11 +1,11 @@
 pages:
-  stage: deploy
+  stage: predeploy
   script:
   - mkdir .build
   - cp -r * .build
   - mv .build build
   artifacts:
     paths:
-    - build
+    - weather-app/build
   only:
   - main
