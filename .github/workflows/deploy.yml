@@ -21,7 +21,7 @@ jobs:
     # Build and deploy rockpaperscissor_game
     - name: Setup and build in rockpaperscissor_game directory
       env:
-        PUBLIC_URL: ./rockpaperscissor_game/
+        PUBLIC_URL: ./rockpaperscissor_game/build
       run: |
           cd rockpaperscissor_game
           npm install
@@ -29,15 +29,15 @@ jobs:
     - name: Deploy rockpaperscissor_game to GitHub Pages
       run: |
         git checkout main
-        cp -r rockpaperscissor_game/build/* ./rockpaperscissor_game/
-        git add ./rockpaperscissor_game/
-        git commit -m "Deploy rockpaperscissor_game"
+        cp -r rockpaperscissor_game/build/* ./rockpaperscissor_game/build
+        git add ./rockpaperscissor_game/build
+        git commit -m "Deploy rockpaperscissor_game/build"
         git push origin main
 
     # Build and deploy shopping-site
     - name: Setup and build in shopping-site directory
       env:
-        PUBLIC_URL: ./shopping-site/
+        PUBLIC_URL: ./shopping-site/build
       run: |
         cd shopping-site
         npm install
@@ -45,14 +45,14 @@ jobs:
     - name: Deploy shopping-site to GitHub Pages
       run: |
         git checkout main
-        cp -r shopping-site/build/* ./shopping-site/
-        git add ./shopping-site/
+        cp -r shopping-site/build/* ./shopping-site/build
+        git add ./shopping-site/build
         git commit -m "Deploy shopping-site"
         git push origin main
 
     - name: Setup and build in weather-app directory
       env:
-        PUBLIC_URL: ./weather-app/
+        PUBLIC_URL: ./weather-app/build
       run: |
         cd weather-app
         npm install
@@ -61,8 +61,8 @@ jobs:
     - name: Deploy weather-app to GitHub Pages
       run: |
         git checkout main
-        cp -r weather-app/build/* ./weather-app/
-        git add ./weather-app/
+        cp -r weather-app/build/* ./weather-app/build
+        git add ./weather-app/build
         git commit -m "Deploy weather-app"
         git push origin main
 
