@@ -20,8 +20,6 @@ jobs:
     
     # Build and deploy rockpaperscissor_game
     - name: Setup and build in rockpaperscissor_game directory
-      env:
-        PUBLIC_URL: ./rockpaperscissor_game/build
       run: |
           cd rockpaperscissor_game
           npm install
@@ -36,8 +34,6 @@ jobs:
 
     # Build and deploy shopping-site
     - name: Setup and build in shopping-site directory
-      env:
-        PUBLIC_URL: ./shopping-site/build
       run: |
         cd shopping-site
         npm install
@@ -51,8 +47,6 @@ jobs:
         git push origin main
 
     - name: Setup and build in weather-app directory
-      env:
-        PUBLIC_URL: ./weather-app/build
       run: |
         cd weather-app
         npm install
