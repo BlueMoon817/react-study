@@ -190,7 +190,11 @@ function App() {
       setClassName("page-detail");
     }
   }, [paths.pathname, move, productList]);
-
+  useEffect(() => {
+    if (!authenticate && paths.pathname !== '/login' && paths.pathname !== '/signup') {
+      navigate('/login');
+    }
+  }, [paths, authenticate, navigate]);
   return (
     <div className={`wrap ${urlPath}`}>
       <Navbar  
