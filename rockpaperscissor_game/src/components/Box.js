@@ -1,6 +1,5 @@
 import React from "react";
 import '../App.css';
-import { useState } from "react";
 const Box = (props) =>{
   return (
     <div className={"game_box is_" + props.result}>
