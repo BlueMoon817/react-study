@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/css/main.5050e84a.css",
-    "main.js": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/js/main.020c5d1e.js",
-    "static/js/787.4239a9e9.chunk.js": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/js/787.4239a9e9.chunk.js",
-    "static/media/rock.svg": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/media/rock.34593e00048a017bfcdbc613e0b7b996.svg",
-    "index.html": "/BlueMoon817/react-study/rockpaperscissor_game/build/index.html",
-    "static/media/scissors.svg": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/media/scissors.9abfcc878ade58cdf8131b4e1f2c3f41.svg",
-    "static/media/papers.svg": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/media/papers.465abccf0dda6de077ccb862552e6f1f.svg",
-    "main.5050e84a.css.map": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/css/main.5050e84a.css.map",
-    "main.020c5d1e.js.map": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/js/main.020c5d1e.js.map",
-    "787.4239a9e9.chunk.js.map": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/js/787.4239a9e9.chunk.js.map"
+    "main.css": "./static/css/main.496b7221.css",
+    "main.js": "./static/js/main.062f118b.js",
+    "static/js/787.4239a9e9.chunk.js": "./static/js/787.4239a9e9.chunk.js",
+    "static/media/rock.svg": "./static/media/rock.34593e00048a017bfcdbc613e0b7b996.svg",
+    "static/media/scissors.svg": "./static/media/scissors.9abfcc878ade58cdf8131b4e1f2c3f41.svg",
+    "index.html": "./index.html",
+    "static/media/papers.svg": "./static/media/papers.465abccf0dda6de077ccb862552e6f1f.svg",
+    "main.496b7221.css.map": "./static/css/main.496b7221.css.map",
+    "main.062f118b.js.map": "./static/js/main.062f118b.js.map",
+    "787.4239a9e9.chunk.js.map": "./static/js/787.4239a9e9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5050e84a.css",
-    "static/js/main.020c5d1e.js"
+    "static/css/main.496b7221.css",
+    "static/js/main.062f118b.js"
   ]
 }
