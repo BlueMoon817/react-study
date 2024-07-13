@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/css/main.5050e84a.css",
+    "main.js": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/js/main.4b1f7246.js",
+    "static/js/787.4239a9e9.chunk.js": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/js/787.4239a9e9.chunk.js",
+    "static/media/rock.svg": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/media/rock.34593e00048a017bfcdbc613e0b7b996.svg",
+    "index.html": "/BlueMoon817/react-study/rockpaperscissor_game/build/index.html",
+    "static/media/scissors.svg": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/media/scissors.9abfcc878ade58cdf8131b4e1f2c3f41.svg",
+    "static/media/papers.svg": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/media/papers.465abccf0dda6de077ccb862552e6f1f.svg",
+    "main.5050e84a.css.map": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/css/main.5050e84a.css.map",
+    "main.4b1f7246.js.map": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/js/main.4b1f7246.js.map",
+    "787.4239a9e9.chunk.js.map": "/BlueMoon817/react-study/rockpaperscissor_game/build/static/js/787.4239a9e9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5050e84a.css",
+    "static/js/main.4b1f7246.js"
+  ]
+}
