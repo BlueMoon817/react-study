@@ -25,7 +25,7 @@
       "react-app/jest"
     ]
   },
-  "homepage": "https://github.com/BlueMoon817/react-study/rockpaperscissor_game/build",
+  "homepage": ".",
   "browserslist": {
     "production": [
       ">0.2%",
