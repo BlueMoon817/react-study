@@ -3,22 +3,29 @@ import {useEffect, useState} from "react";
 import {Routes, Route, useLocation, useNavigate} from "react-router-dom";
 import AddressData from "react-daum-postcode";
 import Main from './pages/main';
+import useAuth from './components/useAuth.js';
 import Login from './pages/login';
 import Navbar from './components/Navbar';
 import List from './pages/list';
 import PrivatePage from './pages/PrivatePage.js';
 import SignUp from './pages/signup';
 
+const PAGE_CLASSES = {
+  LOGIN: 'page-login',
+  LIST: 'page-list',
+  PRODUCT: 'page-product',
+  MYINFO: 'page-myinfo',
+  SIGNUP: 'page-signup',
+  DETAIL: 'page-detail'
+}
+
 function App() {
   // 현재페이지체크
   const paths=useLocation();
-  const navigate=useNavigate();
+  // 로그인 체크
+  const {authenticate, btnText, loginCheckFunc} = useAuth();
   // 페이지 클래스 업데이트 변수
-  const [urlPath, setClassName] = useState("page-product");
-  // 로그인여부체크
-  const [authenticate, setAuthenticate] = useState(false);
-  // 로그인버튼 텍스트
-  const [btnText, setBtnText] = useState('로그인');
+  const [urlPath, setClassName] = useState(PAGE_CLASSES.PRODUCT);
   // 상품 리스트
   const [productList, setProductList] = useState([]);
   // 장바구니 목록
@@ -32,9 +39,9 @@ function App() {
   //관심 상품목록
   const [likeList, setLikeList] = useState(null);
   const [addressData, setAddressData] = useState();
-
   // 현재경로(/top,/pants,/)로 재이동시 검색결과리셋을 위한 state
   const [move, setMove]=useState(0);
+  
   const updateMoveFunc=()=>{
     setMove(move+1);
   }
@@ -62,19 +69,6 @@ function App() {
     return updatedList;
   });
 }
-  // 로그인 조건 함수 (로그인버튼 텍스트와, 로그인상태값 업데이트)
-  const loginCheckFunc=(login)=>{ 
-    if(login.state==="login"){
-      setAuthenticate(true);
-      setBtnText('로그아웃');
-      if(login.path){
-        navigate(login.path);
-      }
-    }else if(login.state==="logout"){
-      setAuthenticate(false);
-      setBtnText('로그인');
-    }
-  }
   //회원가입 정보 등록함수
   const userDataFunc=()=>{
 
@@ -83,7 +77,6 @@ function App() {
   const getAddressDatas=async()=>{
     let url = `https://bluemoon817.github.io/fileInfo/json/db.json`;
   }
-
 
   // 상품리스트 받아오기
   const getProducts = async () => {
@@ -155,46 +148,34 @@ function App() {
       // 검색 가능한 페이지가 아니면 검색리스트 초기화
       setSearchList([]);
     }
-  }
-
-  // 로그인 업데이트 시 
-  useEffect(()=>{
-    if(authenticate===true){
-      loginCheckFunc("login");
-    }else{
-      loginCheckFunc("logout");
-    }
-  },[authenticate]);
-  
+  }  
   // 페이지 이동시 페이지 클래스변경, 검색내용 초기화
   useEffect(()=>{
-    if (paths.pathname==="/login"){
-      setClassName("page-login");
-      setAuthenticate(false);
-    } else if (paths.pathname === `/list`){
-      setClassName("page-list");
-    } else if ( 
-      paths.pathname === "/" || 
-      paths.pathname === "/pants"|| 
-      paths.pathname === "/top"
-    ) {
-      setClassName("page-product");
-      // 상품 재랜더링
-      searchFunc({keywordTxt:null, pathTxt:paths.pathname});
-    }else if(paths.pathname === "/info"){
-      setClassName("page-myinfo");
-    }else if (paths.pathname === "/signup") {
-      setClassName("page-signup");
-    }
-     else {
-      setClassName("page-detail");
+    switch (paths.pathname){
+      case '/login' :
+        setClassName(PAGE_CLASSES.LOGIN);
+        break;
+      case '/list' : 
+        setClassName(PAGE_CLASSES.LIST);
+        break;
+      case '/' : 
+      case '/pants' : 
+      case '/top' : 
+        setClassName(PAGE_CLASSES.PRODUCT);
+        searchFunc({keywordTxt:null, pathTxt: paths.pathname});
+        break;
+      case '/info' :
+        setClassName(PAGE_CLASSES.MYINFO);
+        break;
+      case '/signup' :
+        setClassName(PAGE_CLASSES.SIGNUP);
+        break;
+      default : 
+        setClassName(PAGE_CLASSES.DETAIL);
+        break;
     }
   }, [paths.pathname, move, productList]);
-  useEffect(() => {
-    if (!authenticate && paths.pathname !== '/login' && paths.pathname !== '/signup') {
-      navigate('/login');
-    }
-  }, [paths, authenticate, navigate]);
+
   return (
     <div className={`wrap ${urlPath}`}>
       <Navbar  
