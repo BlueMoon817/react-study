@@ -1,13 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap");
-
-*{margin:0;padding:0;}
-html, body{
+*{ margin:0;padding:0; }
+html, body {
   width:100%;
   height:100%;
   overflow:hidden;
   font-family: 'Noto Sans', sans-serif;
 }
-.wrap{
+.wrap {
   position:relative;
   width:100%;
   height:100vh;
@@ -18,7 +17,7 @@ html, body{
   text-align:center;
 }
 .content_box {
-  max-width: 500px;
+  max-width: 440px;
   width: 100%;
 }
 .img_background {
@@ -38,7 +37,7 @@ html, body{
   background-size: cover;
 }
 .is_Squall {
-  background: url('./img/Squall.jpg') no-repeat;
+  background: url('img/Squall.jpg') no-repeat;
   background-size: cover;
 }
 .is_Clear {
@@ -61,62 +60,56 @@ html, body{
   position:absolute;
   transform: translate(-50%,-50%);
 }
-h1{
-  -webkit-text-stroke: 2px #000;
-  text-stroke: 2px #000;
-}
-.current_city{
+.current_city {
   -webkit-text-stroke: 1px #555;
   text-stroke: 1px #555;
 }
-h1, 
-.current_city{
-  font-size:40px;
+.current_city {
+  font-size:1.7em;
   color:#eee;
   font-weight:bold;
   text-align:center;
 }
-.current_city{
-  color:skyblue;
+.current_city {
+  color:rgb(107, 185, 230);
 }
-.text_wrap{
-  margin-top:50px;
-  border:2px solid #000;
+.text_wrap {
+  display:inline-block;
+  max-width:440px;
+  width:100%;
+  margin-top:40px;
   border-radius:20px;
-  padding:20px 50px;
-  background-color:#fff;
-  height:141px;
+  padding:20px 0;
+  background-color:#f3dcce;
   box-sizing: border-box;
 }
-.text_wrap >span {
-  margin-top: 20px;
+.text_wrap > span {
+  margin-top: 16px;
   display: block;
   box-sizing: border-box;
 }
-.text_wrap>span:nth-of-type(1){
+.text_wrap>span:nth-of-type(1) {
   margin-top:0;
 }
-
-.text_location{
-  font-size:14px;
+.text_location {
+  font-size:16px;
   color:#555;
   font-weight:700;
 }
-.text_temp{
-  font-size:15px;
+.text_temp {
+  font-size:17px;
   color:#222;
   font-weight:600;
 }
-.text_desc{
-  font-size:14px;
+.text_desc {
+  font-size:15px;
   color:#555;
   font-weight:500;
 }
-
-.btn_group{
+.btn_group {
   margin-top:35px;
 }
-button{
+button {
   cursor:pointer;
   display:inline-block;
   vertical-align:top;
@@ -130,8 +123,7 @@ button{
 button:not(:nth-of-type(1)){
   margin-left:10px;
 }
-
-button.is_active{
+button.is_active {
   background-color:#2d2d2d;
   color:#eee;
 }

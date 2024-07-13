@@ -6,7 +6,7 @@ export default function Text ({weather}){
   weather && weather.main ? (((weather.main.temp - 273.15) * 9) /5 + 32).toFixed(2) : "";
   return(
     <>
-    <h1>Weather - <span className='current_city'>{weather? weather.name : "Seoul"}</span></h1>
+    <h1><span className='current_city'>{weather? weather.name : "Seoul"}</span></h1>
     <div className='text_wrap'>
       <span className='text_location'>{weather && weather.name}</span>
       <span className='text_temp'>{`${temperatureC}°C / ${temperatureF}°F`}</span>
@@ -15,4 +15,3 @@ export default function Text ({weather}){
     </>
   );
 }
-
