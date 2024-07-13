@@ -1,4 +1,4 @@
-name: Build and Deploy Projects
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -9,29 +9,24 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        project: ['rockpaperscissor_game', 'shopping-site', 'weather-app']
-
     steps:
-    - name: Checkout
+    - name: Checkout develop branch
       uses: actions/checkout@v2
+      with:
+        ref: develop
 
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
         node-version: '14'
 
-    - name: Install Dependencies
-      run: cd ${{ matrix.project }} && npm install
+    - name: Install dependencies
+      run: npm install
 
-    - name: Build
-      run: cd ${{ matrix.project }} && npm run build
+    - name: Build project
+      env:
+        PUBLIC_URL: ./  # 여기서 PUBLIC_URL을 설정
+      run: npm run build
 
     - name: Deploy to GitHub Pages
-      run: |
-        cd ${{ matrix.project }} && git checkout -f main
-        cp -r build/* .
-        git add .
-        git commit -m "Deploy ${matrix.project}"
-        git push origin main
+      run: npm run deploy
