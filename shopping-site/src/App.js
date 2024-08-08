@@ -184,105 +184,18 @@ function App() {
         searchFunc={searchFunc}
         searchUI={paths.pathname}
         updateMoveFunc={updateMoveFunc}
-      ></Navbar>
+      />
       <div className='content'>
       <Routes>
-        <Route 
-          path="/"
-          element={
-            <Main 
-              productList={searchList.length!==0?searchList : productList}
-              updateLikeData={updateLikeData}
-              authenticate={authenticate}
-            />
-          } 
-        />
-        <Route 
-          path="/pants"
-          element={
-            <Main 
-              productList={searchList.length!==0?searchList : productList}
-              updateLikeData={updateLikeData}
-              authenticate={authenticate}
-            />
-          } 
-        />
-        <Route 
-          path="/top"
-          element={
-            <Main 
-              productList={searchList.length!==0?searchList : productList}
-              updateLikeData={updateLikeData}
-              authenticate={authenticate}
-            />
-          } 
-        />
-        <Route 
-          path="/list" 
-          element={
-            <List 
-              list={savePdt} 
-              saveProduct={saveProduct} 
-              deleteFunc={deleteFunc} 
-            />
-          } 
-        />
-        <Route 
-          path="/login" 
-          element={ 
-            <Login 
-              stateLogin={authenticate}
-              loginCheckFunc={loginCheckFunc} 
-            /> 
-          } 
-        />
-        <Route 
-          path="/signup" 
-          element={ 
-            <SignUp userDataFunc={userDataFunc}/> 
-          } 
-        />
-        <Route 
-          path={`/product/:id`} 
-          element={
-            <PrivatePage 
-              authenticate={authenticate} 
-              popupState={popupState} 
-              messageTxt={messageTxt} 
-              popupFunc={popupFunc}
-              productList={productList}
-              saveProduct={saveProduct}
-              path="product/:id"
-            /> 
-          }
-        />
-        <Route 
-          path={`/info`} 
-          element={
-            <PrivatePage
-              authenticate={authenticate} 
-              popupState={popupState} 
-              messageTxt={messageTxt} 
-              popupFunc={popupFunc}
-              updateLikeData={updateLikeData}
-              productList={likeList}
-              addressData={addressData}
-              path="info"
-            /> 
-          }
-        />
-        <Route 
-          path={`/qna`} 
-          element={
-            <PrivatePage
-              authenticate={authenticate} 
-              popupState={popupState} 
-              messageTxt={messageTxt} 
-              popupFunc={popupFunc}
-              path="qna"
-            /> 
-          }
-        />
+        <Route path="/" element={<Main productList={searchList.length!==0?searchList : productList} updateLikeData={updateLikeData} authenticate={authenticate} />} />
+        <Route path="/pants" element={ <Main  productList={searchList.length!==0?searchList : productList} updateLikeData={updateLikeData} authenticate={authenticate} />} />
+        <Route path="/top" element={ <Main  productList={searchList.length!==0?searchList : productList} updateLikeData={updateLikeData} authenticate={authenticate} /> } />
+        <Route path="/list" element={ <List  list={savePdt}  saveProduct={saveProduct} deleteFunc={deleteFunc} />} />
+        <Route path="/login" element={ <Login stateLogin={authenticate} loginCheckFunc={loginCheckFunc} /> } />
+        <Route path="/signup" element={ <SignUp userDataFunc={userDataFunc}/> } />
+        <Route path={`/product/:id`} element={<PrivatePage authenticate={authenticate} popupState={popupState} messageTxt={messageTxt} popupFunc={popupFunc} productList={productList} saveProduct={saveProduct} path="product/:id"/> } />
+        <Route path={`/info`} element={<PrivatePage authenticate={authenticate} popupState={popupState} messageTxt={messageTxt} popupFunc={popupFunc} updateLikeData={updateLikeData} productList={likeList} addressData={addressData} path="info" /> }/>
+        <Route path={`/qna`} element={<PrivatePage authenticate={authenticate} popupState={popupState} messageTxt={messageTxt} popupFunc={popupFunc} path="qna"/>} />
       </Routes> 
       </div>
     </div>
